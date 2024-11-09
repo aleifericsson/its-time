@@ -7,6 +7,8 @@ export default function LoadingAnim() {
     const [progress, setProgress] = useState(0);
     const progressRef = useRef(null);
     const hourglassRef = useRef(null);
+    const starsRef = useRef(null);
+    const gradientRef = useRef(null);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -27,16 +29,84 @@ export default function LoadingAnim() {
         const timer = setTimeout(() => {
             removeReact();
         }, 5000);
+    
+        return () => {
+            clearTimeout(timer);
+        };
+    }, []);
+    
 
-        return () => clearTimeout(timer);
+    //create stars
+    useEffect(async () => {
+        // Initialize Three.js scene
+        const scene = new THREE.Scene();
+        const dimensions = window.innerWidth / window.innerHeight
+        const camera = new THREE.PerspectiveCamera(75, dimensions, 0.1, 1000)
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize( window.innerWidth, window.innerHeight)
+        starsRef.current.appendChild(renderer.domElement);
+
+        camera.position.z = 30;   
+        
+        const earthTexture = new THREE.TextureLoader().load(await chrome.runtime.getURL('images/earth.jpg'))
+        const earthNormal = new THREE.TextureLoader().load(await chrome.runtime.getURL('images/earth-normalmap.jpg'))
+        console.log(chrome.runtime.getURL('images/earth.jpg'))
+
+        const earth = new THREE.Mesh(
+            new THREE.SphereGeometry(3,70,70),
+            new THREE.MeshBasicMaterial({map:earthTexture, normalMap: earthNormal})
+        )
+        scene.add(earth)
+
+        earth.position.z = -60;
+        earth.position.x = -10;    
+
+        function addStar(){
+            const geometry = new THREE.SphereGeometry(0.25,24,24)
+            const material = new THREE.MeshBasicMaterial({color:0xffffff})
+            const star = new THREE.Mesh(geometry, material);
+    
+            let [x, y, z] = Array(3).fill(0).map(()=> THREE.MathUtils.randFloatSpread(100))
+            z = THREE.MathUtils.randFloatSpread(500)-250
+            
+            star.position.set(x,y,z);
+            scene.add(star)
+        }
+    
+        Array(300).fill(0).forEach(()=>addStar())
+        let speed = 0.02
+        let rot_speed = 0.001
+
+        // Animation loop for stars
+        const animate = function () {
+            requestAnimationFrame(animate);
+            camera.position.z -= speed
+            speed += 0.015
+            camera.rotation.z += rot_speed
+            rot_speed += 0.0001
+            earth.rotation.y += 0.005
+            earth.position.z += 0.4
+            renderer.render(scene, camera);
+        };
+
+        animate();
+
+        return () => {
+            if (starsRef.current && starsRef.current.contains(renderer.domElement)) {
+                starsRef.current.removeChild(renderer.domElement);
+            }
+        };
+        
     }, []);
 
+    //Create hourglass
     useEffect(() => {
         // Initialize Three.js scene
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+        const dimensions = 200 / 300
+        const camera = new THREE.PerspectiveCamera(75, dimensions, 0.1, 1000)
         const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize(200, 300);
+        renderer.setSize( 200, 300)
         hourglassRef.current.appendChild(renderer.domElement);
 
         // Create hourglass geometry
@@ -45,7 +115,7 @@ export default function LoadingAnim() {
         const hourglass = new THREE.Mesh(geometry, material);
         scene.add(hourglass);
 
-        camera.position.z = 30;
+        camera.position.z = 30;  
 
         // Animation loop for spinning hourglass
         const animate = function () {
@@ -58,14 +128,19 @@ export default function LoadingAnim() {
         animate();
 
         return () => {
-            // Cleanup Three.js resources
-            hourglassRef.current.removeChild(renderer.domElement);
-        };
+            if (hourglassRef.current && hourglassRef.current.contains(renderer.domElement)) {
+                hourglassRef.current.removeChild(renderer.domElement);
+            }
+        };        
     }, []);
 
     return (
         <div className="loading-overlay">
             <div className="loading-content">
+                {/* STARS */}
+                <div className="stars-container" ref={starsRef}></div>
+                {/* GRADIENT */}
+                <div className="gradient-container" ref={gradientRef}></div>
                 {/* Spinning Hourglass */}
                 <div className="hourglass-container" ref={hourglassRef}></div>
                 

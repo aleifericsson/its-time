@@ -11,7 +11,6 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
 }
-
 /* Centering content */
 .loading-content {
     text-align: center;
@@ -22,7 +21,6 @@
     justify-content: center;
     align-items: center; /* Ensure the content is centered */
 }
-
 /* Hourglass container */
 .hourglass-container {
     margin-bottom: 20px;
@@ -30,7 +28,6 @@
     height: 300px; /* Fix the height */
     position: relative; /* Fix its position */
 }
-
 /* 3D Progress Bar */
 .progress-bar-container {
     width: 1200px; /* Full width */
@@ -44,12 +41,44 @@
     transform: perspective(500px) rotateX(15deg); /* 3D tilt */
     overflow: hidden;
 }
-
 .progress-bar {
     height: 100%;
-    background-color: #4caf50;
+    background-color: #e6ae06;
     border-radius: 25px;
     transition: width 0.1s ease-in-out;
     box-shadow: inset 0px 5px 20px rgba(0, 0, 0, 0.2); /* Inner shadow for depth */
     transform: translateZ(10px); /* Create depth on filling */
+}
+
+.stars-container {
+    margin-bottom: 20px;
+    width: 100vw; /* Fix the width */
+    height: 100vh; /* Fix the height */
+    position: absolute; /* Fix its position */
+}
+
+.gradient-container {
+    width: 100vw;          /* Full viewport width */
+    height: 100vh;         /* Full viewport height */
+    position: absolute;    /* Fixed position */
+    top: 0;
+    left: 0;
+    opacity: 0.1;
+    background-color: blue; /* Initial color */
+    animation: gradient-animation 5s linear infinite; /* Apply the animation */
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-color: blue;
+    }
+    40% {
+        background-color: rgb(60, 0, 128);
+    }
+    60% {
+        background-color: rgb(165, 23, 181);
+    }
+    100% {
+        background-color: rgb(244, 56, 144);
+    }
 }

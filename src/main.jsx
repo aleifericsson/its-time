@@ -14,8 +14,7 @@ import Stop from './settings/stop.jsx'
 if (!isDevMode()){ //runs on npm run build
   createRoot(document.getElementById('root')).render(
     <StrictMode>
-      <Settings />
-      <Stop />
+      <Form />
     </StrictMode>,
   )
 }

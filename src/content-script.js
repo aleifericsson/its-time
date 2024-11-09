@@ -3,7 +3,6 @@ import { generateRoot, injectReact } from "./content/ext-qol.jsx";
 import { handleMessages } from "./content/message.js";
 import { getAllStorage, updateSettingsToContent } from "./content/storage.js";
 import Popup from "./content/Popup.jsx";
-import { changeText } from "./content/wiki-scraper.js";
 
 const root = generateRoot()
 render(document.body, root)
