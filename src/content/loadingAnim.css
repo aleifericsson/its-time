@@ -35,7 +35,7 @@
     height: 40px; /* Keep the height */
     background-color: #555;
     border-radius: 25px;
-    margin-top: 30px;
+    margin-top: -50px;
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5); /* 3D shadow effect */
     position: relative;
     transform: perspective(500px) rotateX(15deg); /* 3D tilt */
@@ -43,7 +43,7 @@
 }
 .progress-bar {
     height: 100%;
-    background-color: #4caf50;
+    background-color: #e6ae06;
     border-radius: 25px;
     transition: width 0.1s ease-in-out;
     box-shadow: inset 0px 5px 20px rgba(0, 0, 0, 0.2); /* Inner shadow for depth */
