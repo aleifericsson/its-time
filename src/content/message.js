@@ -1,6 +1,6 @@
 import { getRoot, injectReact, isRendered, removeReact } from "./ext-qol";
 import Popup from "./Popup.jsx";
-import LoadingAnim from "./loadingAnim.jsx";
+import LoadingAnim from "./LoadingAnim.jsx";
 import { setStore, updateSettingsToContent } from "./storage.js";
 
 let popup_pos = {x: 300, y: 500}
@@ -33,7 +33,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         updateSettingsToContent()
     }
     if (message.message == "loading_animation_start"){
-        injectReact(LoadingAnim, getRoot(),{startx:popup_pos.x,starty:popup_pos.y})
+        injectReact(LoadingAnim, getRoot())
         setStore({"loadingAnim":true})
     }
 });

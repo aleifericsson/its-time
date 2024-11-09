@@ -3,8 +3,6 @@ import './Settings.css'
 import { sendMessage } from "../content/message.js";
 import { getAllStorage } from "../content/storage.js";
 
-
-
 export default function Settings({props}){
     const [popup_visible, set_visible] = useState(false); // Default to false
     const [detecting, set_detecting] = useState(false);   // Default to false
@@ -17,6 +15,10 @@ export default function Settings({props}){
         set_detecting(!detecting)
         sendMessage({message:"toggle_detection", detecting: !detecting })
     }
+    const startAnimation = () => {
+        sendMessage({message:"loading_animation_start"})
+    }
+
     const startAnimation = () => {
         sendMessage({message:"loading_animation_start"})
     }
