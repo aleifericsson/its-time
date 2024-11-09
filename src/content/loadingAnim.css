@@ -56,3 +56,61 @@
     height: 100vh; /* Fix the height */
     position: absolute; /* Fix its position */
 }
+
+.gradient-container {
+    width: 100vw;          /* Full viewport width */
+    height: 100vh;         /* Full viewport height */
+    position: absolute;    /* Fixed position */
+    top: 0;
+    left: 0;
+    opacity: 0.2;
+    background-color: blue; /* Initial color */
+    animation: gradient-animation 5s linear infinite; /* Apply the animation */
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-color: blue;
+    }
+    40% {
+        background-color: rgb(60, 0, 128);
+    }
+    60% {
+        background-color: rgb(165, 23, 181);
+    }
+    100% {
+        background-color: rgb(244, 56, 144);
+    }
+}
+
+.glow-container {
+    width: 100vw;          /* Full viewport width */
+    height: 100vh;         /* Full viewport height */
+    position: absolute;    /* Fixed position */
+    top: 0;
+    left: 0;
+    opacity: 0.4;
+    background: radial-gradient(circle, white 0%, transparent 100%); /* Center white fading to transparent */
+    animation: glow-animation 5s linear infinite; /* Apply the animation */
+}
+
+@keyframes glow-animation {
+    0% {
+        opacity: 0.2;
+    }
+    20% {
+        opacity: 0.4;
+    }
+    40% {
+        opacity: 0.2;
+    }
+    60% {
+        opacity: 0.5;
+    }
+    80% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0.6;
+    }
+}

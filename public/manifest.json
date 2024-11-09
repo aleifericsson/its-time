@@ -20,10 +20,12 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "assets/content.ZU9Hyzy6.js",
+        "models/*.glb"
+        "assets/content.BfHP8E78.js",
         "content/style.css",
         "images/close.png",
-        "models/*.glb"
+        "images/earth.jpg",
+        "images/cube.jpg"
       ],
       "matches": [
         "<all_urls>"
@@ -33,7 +35,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/content.ZU9Hyzy6.js"
+        "assets/content.BfHP8E78.js"
       ],
       "matches": [
         "http://*/*",

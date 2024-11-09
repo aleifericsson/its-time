@@ -10,6 +10,7 @@ export default function LoadingAnim() {
     const progressRef = useRef(null);
     const globeRef = useRef(null);
     const starsRef = useRef(null);
+    const gradientRef = useRef(null);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -34,8 +35,8 @@ export default function LoadingAnim() {
         return () => clearTimeout(timer);
     }, []);
 
-    // Create stars
-    useEffect(() => {
+    //create stars
+    useEffect(async () => {
         // Initialize Three.js scene
         const scene = new THREE.Scene();
         const dimensions = window.innerWidth / window.innerHeight;
@@ -44,28 +45,54 @@ export default function LoadingAnim() {
         renderer.setSize(window.innerWidth, window.innerHeight);
         starsRef.current.appendChild(renderer.domElement);
 
-        camera.position.z = 30;
-
+        camera.position.z = 30;   
+        
+        const earthTexture = new THREE.TextureLoader().load(await chrome.runtime.getURL('images/earth.jpg'))
+        console.log(chrome.runtime.getURL('images/earth.jpg'))
+        const earth = new THREE.Mesh(
+            new THREE.SphereGeometry(3,70,70),
+            new THREE.MeshBasicMaterial({map:earthTexture})
+        )
+        scene.add(earth)
+        const cubeTexture = new THREE.TextureLoader().load(await chrome.runtime.getURL('/images/cube.jpg'))
+        const cube = new THREE.Mesh(//shortand wow
+            new THREE.BoxGeometry(10,10,10),
+            new THREE.MeshBasicMaterial({map:cubeTexture})
+        )
+        scene.add(cube)
+        
+        cube.position.z = -250
+        cube.position.x = 10
+        earth.position.z = -60
+        earth.position.x = -10
+      
         function addStar() {
             const geometry = new THREE.SphereGeometry(0.25, 24, 24);
             const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
             const star = new THREE.Mesh(geometry, material);
-
-            let [x, y, z] = Array(3).fill(0).map(() => THREE.MathUtils.randFloatSpread(50));
-            z = THREE.MathUtils.randFloatSpread(400) - 200;
-
-            star.position.set(x, y, z);
-            scene.add(star);
+            let [x, y, z] = Array(3).fill(0).map(()=> THREE.MathUtils.randFloatSpread(100))
+            z = THREE.MathUtils.randFloatSpread(500)-250
+            
+            star.position.set(x,y,z);
+            scene.add(star)
         }
-
-        Array(200).fill(0).forEach(() => addStar());
-        let speed = 0.01;
+    
+        Array(300).fill(0).forEach(()=>addStar())
+        let speed = 0.02
+        let rot_speed = 0.001
 
         // Animation loop for stars
         const animate = function () {
             requestAnimationFrame(animate);
-            camera.position.z -= speed;
-            speed += 0.01;
+            camera.position.z -= speed
+            speed += 0.015
+            camera.rotation.z += rot_speed
+            rot_speed += 0.0001
+            earth.rotation.y += 0.005
+            earth.position.z -= 0.4
+            cube.rotation.x += 0.005
+            cube.rotation.y += 0.005
+            cube.position.z -= 0.8
             renderer.render(scene, camera);
         };
 
@@ -153,6 +180,11 @@ export default function LoadingAnim() {
                 <div className="stars-container" ref={starsRef}></div>
                 {/* Spinning Globe */}
                 <div className="globe-container" ref={globeRef}></div>
+                {/* GRADIENT */}
+                <div className="gradient-container" ref={gradientRef}></div>
+                <div className="glow-container" ref={gradientRef}></div>
+                {/* Spinning Hourglass */}
+                <div className="hourglass-container" ref={hourglassRef}></div>
                 
                 {/* 3D Progress Bar */}
                 <div className="progress-bar-container">
