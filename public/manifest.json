@@ -34,7 +34,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/content.ClHOLnvF.js"
+        "assets/content.B-UeaUeP.js"
       ],
       "matches": [
         "http://*/*",

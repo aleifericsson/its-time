@@ -6,27 +6,30 @@ import Settings from './settings/Settings.jsx'
 import './main.css'
 
 import fireship3d from './settings/fireship3d'
-import { isDevMode } from './content/ext-qol.jsx'
+import { getCurrentPage, isDevMode } from './content/ext-qol.jsx'
 import Form from './settings/InputForm.jsx'
 import { scrapePage } from './content/wiki-scraper.js'
 import Stop from './settings/stop.jsx'
 
-if (!isDevMode()){ //runs on npm run build
-  createRoot(document.getElementById('root')).render(
-    <StrictMode>
-      <Form />
-    </StrictMode>,
-  )
-}
-else{   //runs on npm run dev
-  createRoot(document.getElementById('root')).render(
-    <StrictMode>
-      <Form />
-    </StrictMode>,
-  )
-}
+getCurrentPage().then(page =>{
+  if (page && page.includes("wikipedia")){
+    createRoot(document.getElementById('root')).render(
+      <StrictMode>
+        <Form />
+      </StrictMode>,
+    )
+  }
+  else{
+    createRoot(document.getElementById('root')).render(
+      <StrictMode>
+        <Stop />
+      </StrictMode>,
+    )
+  }
+})
+
 
 //settings3d()
 //fireship3d()
 
-scrapePage()
+//scrapePage()
