@@ -43,4 +43,18 @@ function isDevMode(){
   else return false
 }
 
-export {injectReact, removeReact, generateRoot, isRendered, getRoot, isDevMode}
+function getCurrentPage() { //ONLY AVAILABLE FROM SETTINGS SCRIPT
+  return new Promise((resolve, reject) => {
+    // Query the active tab in the last focused window
+    chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+      const tab = tabs[0]; // Get the first tab object in the array
+      if (tab && tab.url) {
+        resolve(tab.url);
+      } else {
+        reject(new Error("No active tab with a URL found"));
+      }
+    });
+  });
+}
+
+export {injectReact, removeReact, generateRoot, isRendered, getRoot, isDevMode, getCurrentPage}
