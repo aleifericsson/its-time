@@ -17,6 +17,9 @@ export default function Settings({props}){
         set_detecting(!detecting)
         sendMessage({message:"toggle_detection", detecting: !detecting })
     }
+    const startAnimation = () => {
+        sendMessage({message:"loading_animation_start"})
+    }
 
     useEffect(() => {
         const loadSettings = async () => {
@@ -54,6 +57,15 @@ export default function Settings({props}){
                 />                
                 <label className="switch" htmlFor="detect"></label>
                 <div>{"Detect Popup? (Press P)"}</div>
+            </div>
+            <div className="animation_button">
+                <input
+                    type="button"
+                    id="start-animation"
+                    value="Start Animation"
+                    aria-label="Start Animation"
+                    onClick={startAnimation}
+                />
             </div>
         </div>
     )
