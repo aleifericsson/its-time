@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import './form.css'
 import { sendMessage } from '../content/message';
+import generateMessage from '../prompt-testing.js'
 
-export default function form(){
+export default function form({changeMessage}){
     const [inputValue, setInputValue] = useState(''); // State for input value
     const [submittedValue, setSubmittedValue] = useState(''); // State to store submitted value
 
@@ -11,9 +12,12 @@ export default function form(){
     const handleSubmit = (event) => {
         event.preventDefault(); // Prevent page reload on submit
         setSubmittedValue(inputValue); // Store the submitted input value
-        setInputValue(''); // Clear the input field after submit
         console.log('Submitted Value:', inputValue); // Log the submitted value
-        sendMessage({message:"loading_animation_start"})
+        generateMessage(inputValue).then(result => {
+            changeMessage(result);
+        })
+        setInputValue(''); // Clear the input field after submit
+        // sendMessage({message:"loading_animation_start"})
     };
 
   // Handle change in input field
