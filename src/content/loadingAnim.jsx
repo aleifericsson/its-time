@@ -28,9 +28,12 @@ export default function LoadingAnim() {
         const timer = setTimeout(() => {
             removeReact();
         }, 5000);
-
-        return () => clearTimeout(timer);
+    
+        return () => {
+            clearTimeout(timer);
+        };
     }, []);
+    
 
     //create stars
     useEffect(() => {
@@ -70,9 +73,11 @@ export default function LoadingAnim() {
         animate();
 
         return () => {
-            // Cleanup Three.js resources
-            starsRef.current.removeChild(renderer.domElement);
+            if (starsRef.current && starsRef.current.contains(renderer.domElement)) {
+                starsRef.current.removeChild(renderer.domElement);
+            }
         };
+        
     }, []);
 
     //Create hourglass
@@ -104,9 +109,10 @@ export default function LoadingAnim() {
         animate();
 
         return () => {
-            // Cleanup Three.js resources
-            hourglassRef.current.removeChild(renderer.domElement);
-        };
+            if (hourglassRef.current && hourglassRef.current.contains(renderer.domElement)) {
+                hourglassRef.current.removeChild(renderer.domElement);
+            }
+        };        
     }, []);
 
     return (
