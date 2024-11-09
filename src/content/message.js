@@ -1,7 +1,8 @@
 import { getRoot, injectReact, isRendered, removeReact } from "./ext-qol";
 import Popup from "./Popup.jsx";
-import LoadingAnim from "./LoadingAnim.jsx";
+import LoadingAnim from "./loadingAnim.jsx";
 import { setStore, updateSettingsToContent } from "./storage.js";
+import { changeText } from "./wiki-scraper.js";
 
 let popup_pos = {x: 300, y: 500}
 
@@ -35,6 +36,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.message == "loading_animation_start"){
         injectReact(LoadingAnim, getRoot())
         setStore({"loadingAnim":true})
+        changeText("sample text")
     }
 });
 

@@ -20,7 +20,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "assets/content.C3uP-lBk.js",
+        "assets/content.ClHOLnvF.js",
         "content/style.css",
         "images/close.png"
       ],
@@ -32,7 +32,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/content.C3uP-lBk.js"
+        "assets/content.ClHOLnvF.js"
       ],
       "matches": [
         "http://*/*",

@@ -47,6 +47,7 @@ function moveFilesToDist() {
   }
   const contentScriptFile2 = files.find(file => file.startsWith('content') && file.endsWith('.css'));
   if (contentScriptFile2) {
+    updateManifest2(contentScriptFile2);
   }
 }
 

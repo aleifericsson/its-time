@@ -11,6 +11,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
 }
+
 /* Centering content */
 .loading-content {
     text-align: center;
@@ -21,6 +22,7 @@
     justify-content: center;
     align-items: center; /* Ensure the content is centered */
 }
+
 /* Hourglass container */
 .hourglass-container {
     margin-bottom: 20px;
@@ -28,6 +30,7 @@
     height: 300px; /* Fix the height */
     position: relative; /* Fix its position */
 }
+
 /* 3D Progress Bar */
 .progress-bar-container {
     width: 1200px; /* Full width */
@@ -41,6 +44,7 @@
     transform: perspective(500px) rotateX(15deg); /* 3D tilt */
     overflow: hidden;
 }
+
 .progress-bar {
     height: 100%;
     background-color: #4caf50;

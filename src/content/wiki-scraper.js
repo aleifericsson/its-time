@@ -50,7 +50,7 @@ async function scrapePage(){ //ONLY AVAILABLE  FROM SETTINGS SCRIPT
     })
 }
 
-const changeText = () =>{
+const changeText = (sample_text) =>{
     const textele = find(".mw-content-ltr.mw-parser-output")
     const infobox = find(".infobox")
     const newtext = create("p")
@@ -58,7 +58,7 @@ const changeText = () =>{
         write(textele, " ")
         render(textele, infobox)
         render(textele, newtext)
-        write(newtext, "sample text")
+        write(newtext, sample_text)
     }
     else{
         console.log("nah")

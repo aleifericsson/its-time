@@ -14,5 +14,3 @@ handleMessages()
 getAllStorage().then((result) =>{
     if (result.popupVisible) {injectReact(Popup, root,{startx:300,starty:500})}
 })
-
-changeText()

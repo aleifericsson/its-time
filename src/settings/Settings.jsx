@@ -19,10 +19,6 @@ export default function Settings({props}){
         sendMessage({message:"loading_animation_start"})
     }
 
-    const startAnimation = () => {
-        sendMessage({message:"loading_animation_start"})
-    }
-
     useEffect(() => {
         const loadSettings = async () => {
             const all_settings = await getAllStorage();
