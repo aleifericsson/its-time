@@ -9,8 +9,6 @@ export default async function generateMessage(prompt) {
 
   const inputParagraph = `Curry is an international dish with a sauce or gravy seasoned with spices, mainly derived from the interchange of Indian cuisine with European taste in food, starting with the Portuguese, followed by the Dutch and British, and then thoroughly internationalised. Many dishes that would be described as curries in English are found in the native cuisines of countries in Southeast Asia and East Asia.`;
 
-  console.log(prompt)
-
   const finalPrompt = `For this prompt, I want you to be creative and think of potential outcomes caused by a factually incorrect statement's butterfly effect on the course of history. Once again, be creative. These are the relevant inputs:\n
   'input-text': an informative, non-fictional paragraph(s) (type string)\n
   'input-statement': sentence(s) containing a claim (type string)\n
@@ -23,7 +21,7 @@ export default async function generateMessage(prompt) {
   'output-text': an informative paragraph (type string)\n
   'explanation': detailed explanation of the explicit changes to the original paragraph as consequences of the input statement\n
 
-  First, process the input statement, and understand the claims that it asserts. Then, use those claims to reason whether their validity would cause an impact on the input text. If they do not, return the same, unchanged input text and set the 'same' flag to 0. If they do, update them accordingly.
+  First, process the input statement, and understand the claims that it asserts. Then, use those claims to reason whether their validity would cause an impact on the input text. If they do not, return the same, unchanged input text and set the 'same' flag to 0. If they do, update them accordingly. If there is an error, such as the input statement not being intelligible, set the 'error' flag to 1.
 
   The initial configuration of flags is [error: 0, same: 0].
   Format the changes such that parts that are changed are emboldened.\n\n
