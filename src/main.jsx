@@ -8,7 +8,7 @@ import './main.css'
 import fireship3d from './settings/fireship3d'
 import { isDevMode } from './content/ext-qol.jsx'
 import Form from './settings/InputForm.jsx'
-import scrapePage from './content/wiki-scraper.js'
+import { scrapePage } from './content/wiki-scraper.js'
 
 if (!isDevMode()){ //runs on npm run build
   createRoot(document.getElementById('root')).render(
