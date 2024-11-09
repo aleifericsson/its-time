@@ -43,7 +43,7 @@
 }
 .progress-bar {
     height: 100%;
-    background-color: #4caf50;
+    background-color: #e6ae06;
     border-radius: 25px;
     transition: width 0.1s ease-in-out;
     box-shadow: inset 0px 5px 20px rgba(0, 0, 0, 0.2); /* Inner shadow for depth */
@@ -55,4 +55,30 @@
     width: 100vw; /* Fix the width */
     height: 100vh; /* Fix the height */
     position: absolute; /* Fix its position */
+}
+
+.gradient-container {
+    width: 100vw;          /* Full viewport width */
+    height: 100vh;         /* Full viewport height */
+    position: absolute;    /* Fixed position */
+    top: 0;
+    left: 0;
+    opacity: 0.1;
+    background-color: blue; /* Initial color */
+    animation: gradient-animation 5s linear infinite; /* Apply the animation */
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-color: blue;
+    }
+    40% {
+        background-color: rgb(60, 0, 128);
+    }
+    60% {
+        background-color: rgb(165, 23, 181);
+    }
+    100% {
+        background-color: rgb(244, 56, 144);
+    }
 }

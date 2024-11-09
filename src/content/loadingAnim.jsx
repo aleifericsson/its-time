@@ -8,6 +8,7 @@ export default function LoadingAnim() {
     const progressRef = useRef(null);
     const hourglassRef = useRef(null);
     const starsRef = useRef(null);
+    const gradientRef = useRef(null);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -33,7 +34,7 @@ export default function LoadingAnim() {
     }, []);
 
     //create stars
-    useEffect(() => {
+    useEffect(async () => {
         // Initialize Three.js scene
         const scene = new THREE.Scene();
         const dimensions = window.innerWidth / window.innerHeight
@@ -42,28 +43,46 @@ export default function LoadingAnim() {
         renderer.setSize( window.innerWidth, window.innerHeight)
         starsRef.current.appendChild(renderer.domElement);
 
-        camera.position.z = 30;       
+        camera.position.z = 30;   
+        
+        const earthTexture = new THREE.TextureLoader().load(await chrome.runtime.getURL('images/earth.jpg'))
+        const earthNormal = new THREE.TextureLoader().load(await chrome.runtime.getURL('images/earth-normalmap.jpg'))
+        console.log(chrome.runtime.getURL('images/earth.jpg'))
+
+        const earth = new THREE.Mesh(
+            new THREE.SphereGeometry(3,70,70),
+            new THREE.MeshBasicMaterial({map:earthTexture, normalMap: earthNormal})
+        )
+        scene.add(earth)
+
+        earth.position.z = -60;
+        earth.position.x = -10;    
 
         function addStar(){
             const geometry = new THREE.SphereGeometry(0.25,24,24)
             const material = new THREE.MeshBasicMaterial({color:0xffffff})
             const star = new THREE.Mesh(geometry, material);
     
-            let [x, y, z] = Array(3).fill(0).map(()=> THREE.MathUtils.randFloatSpread(50))
-            z = THREE.MathUtils.randFloatSpread(400)-200
+            let [x, y, z] = Array(3).fill(0).map(()=> THREE.MathUtils.randFloatSpread(100))
+            z = THREE.MathUtils.randFloatSpread(500)-250
             
             star.position.set(x,y,z);
             scene.add(star)
         }
     
-        Array(200).fill(0).forEach(()=>addStar())
-        let speed = 0.01      
+        Array(300).fill(0).forEach(()=>addStar())
+        let speed = 0.02
+        let rot_speed = 0.001
 
         // Animation loop for stars
         const animate = function () {
             requestAnimationFrame(animate);
             camera.position.z -= speed
-            speed += 0.01
+            speed += 0.015
+            camera.rotation.z += rot_speed
+            rot_speed += 0.0001
+            earth.rotation.y += 0.005
+            earth.position.z += 0.4
             renderer.render(scene, camera);
         };
 
@@ -114,6 +133,8 @@ export default function LoadingAnim() {
             <div className="loading-content">
                 {/* STARS */}
                 <div className="stars-container" ref={starsRef}></div>
+                {/* GRADIENT */}
+                <div className="gradient-container" ref={gradientRef}></div>
                 {/* Spinning Hourglass */}
                 <div className="hourglass-container" ref={hourglassRef}></div>
                 

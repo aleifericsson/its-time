@@ -13,7 +13,6 @@ import { scrapePage } from './content/wiki-scraper.js'
 if (!isDevMode()){ //runs on npm run build
   createRoot(document.getElementById('root')).render(
     <StrictMode>
-      <Settings />
       <Form />
     </StrictMode>,
   )
