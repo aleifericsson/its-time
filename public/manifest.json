@@ -1,12 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "Extensions BETA",
+  "name": "What If?",
   "icons": {
-    "512": "images/beta.png"
+    "256": "images/what_if.png"
   },
   "version": "1.0.0",
   "action": {
-    "default_popup": "index.html"
+    "default_popup": "settings.html"
   },
   "permissions": [
     "scripting",

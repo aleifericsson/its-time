@@ -103,7 +103,7 @@ export default defineConfig(({ mode }) => {
           assetFileNames: 'assets/[name].[hash].[ext]',
         },}: {
           input: {
-            setting: path.resolve(__dirname, 'index.html'),
+            setting: path.resolve(__dirname, 'settings.html'),
           },
           output: {
             entryFileNames: 'assets/[name].[hash].js',

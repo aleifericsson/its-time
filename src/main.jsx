@@ -5,23 +5,23 @@ import Settings from './settings/Settings.jsx'
 import './main.css'
 import fireship3d from './settings/fireship3d'
 import { isDevMode } from './content/ext-qol.jsx'
-import Fiber from './settings/fiber.jsx'
+import Form from './settings/InputForm.jsx'
 
-if (!isDevMode()){
+if (!isDevMode()){ //runs on npm run build
   createRoot(document.getElementById('root')).render(
     <StrictMode>
       <Settings />
-      <Fiber />
+      <Form />
     </StrictMode>,
   )
 }
-else{   
+else{   //runs on npm run dev
   createRoot(document.getElementById('root')).render(
     <StrictMode>
-      <Fiber />
+      <Form />
     </StrictMode>,
   )
 }
 
 //settings3d()
-fireship3d()
+//fireship3d()
