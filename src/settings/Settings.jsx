@@ -56,6 +56,7 @@ export default function Settings({props}){
                 <label className="switch" htmlFor="detect"></label>
                 <div>{"Detect Popup? (Press P)"}</div>
             </div>
+            {/*
             <div className="animation_button">
                 <input
                     type="button"
@@ -65,6 +66,7 @@ export default function Settings({props}){
                     onClick={startAnimation}
                 />
             </div>
+            */}
         </div>
     )
 }
