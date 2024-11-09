@@ -87,7 +87,7 @@ export default function LoadingAnim() {
         const dimensions = 1000 / 1500;
         const camera = new THREE.PerspectiveCamera(70, dimensions, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize(500, 700);
+        renderer.setSize(500, 7g00);
 
         // Add ambient light
         const ambientLight = new THREE.AmbientLight(0xffffff, 1); // Soft white light
