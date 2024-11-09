@@ -8,7 +8,6 @@ const client = new OpenAI({
 export default async function generateMessage(prompt) {
 
   const inputParagraph = `Curry is an international dish with a sauce or gravy seasoned with spices, mainly derived from the interchange of Indian cuisine with European taste in food, starting with the Portuguese, followed by the Dutch and British, and then thoroughly internationalised. Many dishes that would be described as curries in English are found in the native cuisines of countries in Southeast Asia and East Asia.`;
-
   const finalPrompt = `For this prompt, I want you to be creative and think of potential outcomes caused by a factually incorrect statement's butterfly effect on the course of history. Once again, be creative. These are the relevant inputs:\n
   'input-text': an informative, non-fictional paragraph(s) (type string)\n
   'input-statement': sentence(s) containing a claim (type string)\n

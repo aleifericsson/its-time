@@ -4,20 +4,20 @@ import './form.css'
 import { sendMessage } from '../content/message';
 import generateMessage from '../prompt-testing.js'
 
-export default function form({changeMessage}){
+export default function form(){
     const [inputValue, setInputValue] = useState(''); // State for input value
-    const [submittedValue, setSubmittedValue] = useState(''); // State to store submitted value
 
   // Handle form submission
     const handleSubmit = (event) => {
         event.preventDefault(); // Prevent page reload on submit
-        setSubmittedValue(inputValue); // Store the submitted input value
-        console.log('Submitted Value:', inputValue); // Log the submitted value
-        generateMessage(inputValue).then(result => {
-            changeMessage(result);
-        })
+        const input = inputValue
+        console.log('Submitted Value:', input); // Log the submitted value
         setInputValue(''); // Clear the input field after submit
-        // sendMessage({message:"loading_animation_start"})
+        sendMessage({message:"loading_animation_start"})
+        generateMessage(input).then(result => {
+            sendMessage({message:"proompt", new_text: result})
+            console.log(result)
+        })
     };
 
   // Handle change in input field
@@ -35,6 +35,7 @@ export default function form({changeMessage}){
                 </label>
                 <button type="submit">Submit</button> {/* Submit button */}
             </form>
+
         </div>
     )
 }

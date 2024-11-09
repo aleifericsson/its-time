@@ -20,11 +20,11 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "assets/content.BO7cb6DF.js",
+        "assets/content.BfHP8E78.js",
         "content/style.css",
         "images/close.png",
         "images/earth.jpg",
-        "images/earth-normalmap.jpg"
+        "images/cube.jpg"
       ],
       "matches": [
         "<all_urls>"
@@ -34,7 +34,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/content.BO7cb6DF.js"
+        "assets/content.BfHP8E78.js"
       ],
       "matches": [
         "http://*/*",
