@@ -46,12 +46,32 @@ export default function LoadingAnim() {
         scene.add(hourglass);
 
         camera.position.z = 30;
+        
+        function addStar(){
+            const geometry = new THREE.SphereGeometry(0.25,24,24)
+            const material = new THREE.MeshBasicMaterial({color:0xffffff})
+            const star = new THREE.Mesh(geometry, material);
+    
+            const [x, y, z] = Array(3).fill(0).map(()=> THREE.MathUtils.randFloatSpread(100))
+            
+            star.position.set(x,y,z);
+            scene.add(star)
+        }
+    
+        const stars = Array(200).fill(0).forEach(()=>addStar())
 
         // Animation loop for spinning hourglass
         const animate = function () {
             requestAnimationFrame(animate);
+
             hourglass.rotation.x += 0.01; // Rotate on x-axis
             hourglass.rotation.y += 0.01; // Rotate on y-axis
+
+            stars.forEach(star => {
+                star.position.z += 0.05
+            })
+
+
             renderer.render(scene, camera);
         };
 

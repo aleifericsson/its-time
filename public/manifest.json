@@ -20,7 +20,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "assets/content.ClHOLnvF.js",
+        "assets/content.DObTc-2P.js",
         "content/style.css",
         "images/close.png"
       ],
@@ -32,7 +32,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/content.ClHOLnvF.js"
+        "assets/content.DObTc-2P.js"
       ],
       "matches": [
         "http://*/*",
