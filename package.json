@@ -12,11 +12,13 @@
     "build": "npm run build1 && npm run build2"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "@react-three/drei": "^9.115.0",
     "@react-three/fiber": "^8.17.10",
     "concurrently": "^9.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "textgears-api": "^1.1.11",
     "three": "^0.169.0"
   },
   "devDependencies": {
