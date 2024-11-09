@@ -33,9 +33,11 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         }
         updateSettingsToContent()
     }
-    if (message.message == "loading_animation_start"){
+    if (message.message == "loading_animation_start"){ //{message, text}
         injectReact(LoadingAnim, getRoot())
         setStore({"loadingAnim":true})
+
+
         changeText("sample text")
     }
 });

@@ -7,9 +7,27 @@ import { useState } from 'react'
 import './main.css'
 
 import fireship3d from './settings/fireship3d'
-import { isDevMode } from './content/ext-qol.jsx'
+import { getCurrentPage, isDevMode } from './content/ext-qol.jsx'
 import Form from './settings/InputForm.jsx'
 import { scrapePage } from './content/wiki-scraper.js'
+import Stop from './settings/stop.jsx'
+
+getCurrentPage().then(page =>{
+  if (page && page.includes("wikipedia")){
+    createRoot(document.getElementById('root')).render(
+      <StrictMode>
+        <Form />
+      </StrictMode>,
+    )
+  }
+  else{
+    createRoot(document.getElementById('root')).render(
+      <StrictMode>
+        <Stop />
+      </StrictMode>,
+    )
+  }
+})
 
 function App() {
 
