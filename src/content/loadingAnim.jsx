@@ -55,22 +55,17 @@ export default function LoadingAnim() {
             new THREE.MeshBasicMaterial({map:earthTexture})
         )
         scene.add(earth)
-        const cubeTexture = new THREE.TextureLoader().load('/images/cube.jpg')
+        const cubeTexture = new THREE.TextureLoader().load(await chrome.runtime.getURL('/images/cube.jpg'))
         const cube = new THREE.Mesh(//shortand wow
             new THREE.BoxGeometry(10,10,10),
             new THREE.MeshBasicMaterial({map:cubeTexture})
         )
         scene.add(cube)
-        const geometry = new THREE.TorusGeometry(10, 3, 16, 100)
-        const material = new THREE.MeshBasicMaterial({color: 0xFFFFFF, wireframe:true})//basic: no light, standard: light bounces
-        const torus = new THREE.Mesh(geometry, material);
-        scene.add(torus)
+        
         cube.position.z = -250
         cube.position.x = 10
         earth.position.z = -60
         earth.position.x = -10
-        torus.position.z = -400
-        torus.position.y = 50
 
         function addStar(){
             const geometry = new THREE.SphereGeometry(0.25,24,24)
@@ -100,9 +95,6 @@ export default function LoadingAnim() {
             cube.rotation.x += 0.005
             cube.rotation.y += 0.005
             cube.position.z -= 0.8
-            torus.rotation.y += 0.005;
-            torus.rotation.z += 0.005;
-            torus.position.z -= 1
             renderer.render(scene, camera);
         };
 
