@@ -1,0 +1,55 @@
+{
+  "manifest_version": 3,
+  "name": "Extensions BETA",
+  "icons": {
+    "512": "images/beta.png"
+  },
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "scripting",
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/content.C5CVwics.js",
+        "content/style.css",
+        "images/close.png"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "content_scripts": [
+    {
+      "js": [
+        "assets/content.C5CVwics.js"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "css": [
+        "content/style.css"
+      ],
+      "type": "module"
+    }
+  ],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+B",
+        "mac": "Command+B"
+      }
+    }
+  }
+}

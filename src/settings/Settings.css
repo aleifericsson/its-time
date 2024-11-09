@@ -1,0 +1,65 @@
+.logo{
+    height: calc(2em + 10px);
+    width: auto;
+}
+
+.settings-title{
+    font-size: 2em;
+    font-style: italic;
+    font-weight: bold;
+    color:white;
+    padding: 2px;
+}
+
+.settings-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 15px;
+    background-color: #384c44;
+    padding: 10px;
+}
+
+.switch { 
+    position : relative ;
+    display : inline-block;
+    width : 20px;
+    height : 11px;
+    background-color: #dadada;
+    border-radius: 20px;
+  }
+
+  .switch::after {
+    content: '';
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: white;
+    top: 1px; 
+    left: 1px;
+    transition: all 0.3s;
+  }
+
+  .checkbox:checked + .switch::after {
+    left : 10px; 
+  }
+
+  .checkbox:checked + .switch {
+    background-color: #7983ff;
+  }
+
+  .checkbox { 
+    display : none;
+ }
+
+ .toggle-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+ }
+
+ .settings{
+  background-color: white;
+ }
