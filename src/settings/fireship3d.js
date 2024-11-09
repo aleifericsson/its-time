@@ -21,9 +21,8 @@ export default function fireship3d(){
 
     //components of objects: geometry (has points), material (wrapping paper), mesh
     const geometry = new THREE.TorusGeometry(10, 3, 16, 100)
-    const material = new THREE.MeshStandardMaterial({color: 0xFFFFFF, wireframe:true})//basic: no light, standard: light bounces
+    const material = new THREE.MeshBasicMaterial({color: 0xFFFFFF, wireframe:true})//basic: no light, standard: light bounces
     const torus = new THREE.Mesh(geometry, material);
-
     scene.add(torus)
 
     const pointLight = new THREE.PointLight(0xFFFFFF,50, 50)
@@ -59,10 +58,9 @@ export default function fireship3d(){
     scene.background = spaceTexture
 
     const cubeTexture = new THREE.TextureLoader().load('/images/cube.jpg')
-
     const cube = new THREE.Mesh(//shortand wow
-        new THREE.BoxGeometry(3,3,3),
-        new THREE.MeshStandardMaterial({map:cubeTexture})
+        new THREE.BoxGeometry(10,10,10),
+        new THREE.MeshBasicMaterial({map:cubeTexture})
     )
     scene.add(cube)
 
@@ -87,7 +85,6 @@ export default function fireship3d(){
 
         cube.rotation.x += 0.005;
         cube.rotation.y += 0.005;
-
         earth.rotation.y += 0.005
         
         renderer.render( scene, camera);

@@ -2,9 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import settings3d from './settings/settings3d.js'
 import Settings from './settings/Settings.jsx'
-
 import './main.css'
-
 import fireship3d from './settings/fireship3d'
 import { getCurrentPage, isDevMode } from './content/ext-qol.jsx'
 import Form from './settings/InputForm.jsx'

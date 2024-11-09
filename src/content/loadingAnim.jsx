@@ -49,17 +49,28 @@ export default function LoadingAnim() {
         camera.position.z = 30;   
         
         const earthTexture = new THREE.TextureLoader().load(await chrome.runtime.getURL('images/earth.jpg'))
-        const earthNormal = new THREE.TextureLoader().load(await chrome.runtime.getURL('images/earth-normalmap.jpg'))
         console.log(chrome.runtime.getURL('images/earth.jpg'))
-
         const earth = new THREE.Mesh(
             new THREE.SphereGeometry(3,70,70),
-            new THREE.MeshBasicMaterial({map:earthTexture, normalMap: earthNormal})
+            new THREE.MeshBasicMaterial({map:earthTexture})
         )
         scene.add(earth)
-
-        earth.position.z = -60;
-        earth.position.x = -10;    
+        const cubeTexture = new THREE.TextureLoader().load('/images/cube.jpg')
+        const cube = new THREE.Mesh(//shortand wow
+            new THREE.BoxGeometry(10,10,10),
+            new THREE.MeshBasicMaterial({map:cubeTexture})
+        )
+        scene.add(cube)
+        const geometry = new THREE.TorusGeometry(10, 3, 16, 100)
+        const material = new THREE.MeshBasicMaterial({color: 0xFFFFFF, wireframe:true})//basic: no light, standard: light bounces
+        const torus = new THREE.Mesh(geometry, material);
+        scene.add(torus)
+        cube.position.z = -250
+        cube.position.x = 10
+        earth.position.z = -60
+        earth.position.x = -10
+        torus.position.z = -400
+        torus.position.y = 50
 
         function addStar(){
             const geometry = new THREE.SphereGeometry(0.25,24,24)
@@ -85,7 +96,13 @@ export default function LoadingAnim() {
             camera.rotation.z += rot_speed
             rot_speed += 0.0001
             earth.rotation.y += 0.005
-            earth.position.z += 0.4
+            earth.position.z -= 0.4
+            cube.rotation.x += 0.005
+            cube.rotation.y += 0.005
+            cube.position.z -= 0.8
+            torus.rotation.y += 0.005;
+            torus.rotation.z += 0.005;
+            torus.position.z -= 1
             renderer.render(scene, camera);
         };
 
@@ -141,6 +158,7 @@ export default function LoadingAnim() {
                 <div className="stars-container" ref={starsRef}></div>
                 {/* GRADIENT */}
                 <div className="gradient-container" ref={gradientRef}></div>
+                <div className="glow-container" ref={gradientRef}></div>
                 {/* Spinning Hourglass */}
                 <div className="hourglass-container" ref={hourglassRef}></div>
                 
