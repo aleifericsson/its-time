@@ -1,0 +1,74 @@
+/* Container styling */
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*height: 70vh;               /* Full height of viewport */
+    /*width: 70vw;*/
+    width: 100%;                   /* 80% of the container's width */
+    max-width: 500px;                 /* Full width of viewport */
+    background-color: #e6ae06;   /* Light background for contrast */
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;                   /* 80% of the container's width */
+    max-width: 500px;             /* Prevents form from getting too wide */
+    padding: 20px;
+    border: 1px solid #bf9518;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    align-items: center;
+}
+
+/* Image styling */
+.form-image {
+    width: 100px;         /* Set the width to 50px */
+    height: 100px;        /* Set height to 50px (same as width to make it square) */
+    object-fit: contain; /* Ensures image keeps its aspect ratio */
+    margin-bottom: 15px; /* Adds space between image and input */
+}
+
+/* Label styling */
+label {
+    margin-bottom: 12px;
+    font-size: 1.1em;
+    color: #333;
+}
+
+/* Input styling */
+input[type="text"] {
+    width: 200px;
+    padding: 10px;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+/* Focused input styling */
+input[type="text"]:focus {
+    border-color: #0077ff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 119, 255, 0.3);
+}
+
+/* Button styling */
+button {
+    padding: 10px 15px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #0077ff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #005bb5;
+}
+
