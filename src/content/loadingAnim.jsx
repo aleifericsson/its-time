@@ -2,11 +2,13 @@ import { useEffect, useState, useRef } from 'react';
 import { removeReact } from './ext-qol.jsx';
 import './LoadingAnim.css'; // Add this file for custom CSS styling
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { all } from 'three/webgpu';
 
 export default function LoadingAnim() {
     const [progress, setProgress] = useState(0);
     const progressRef = useRef(null);
-    const hourglassRef = useRef(null);
+    const globeRef = useRef(null);
     const starsRef = useRef(null);
     const gradientRef = useRef(null);
 
@@ -29,21 +31,18 @@ export default function LoadingAnim() {
         const timer = setTimeout(() => {
             removeReact();
         }, 5000);
-    
-        return () => {
-            clearTimeout(timer);
-        };
+
+        return () => clearTimeout(timer);
     }, []);
-    
 
     //create stars
     useEffect(async () => {
         // Initialize Three.js scene
         const scene = new THREE.Scene();
-        const dimensions = window.innerWidth / window.innerHeight
-        const camera = new THREE.PerspectiveCamera(75, dimensions, 0.1, 1000)
+        const dimensions = window.innerWidth / window.innerHeight;
+        const camera = new THREE.PerspectiveCamera(75, dimensions, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize( window.innerWidth, window.innerHeight)
+        renderer.setSize(window.innerWidth, window.innerHeight);
         starsRef.current.appendChild(renderer.domElement);
 
         camera.position.z = 30;   
@@ -66,12 +65,11 @@ export default function LoadingAnim() {
         cube.position.x = 10
         earth.position.z = -60
         earth.position.x = -10
-
-        function addStar(){
-            const geometry = new THREE.SphereGeometry(0.25,24,24)
-            const material = new THREE.MeshBasicMaterial({color:0xffffff})
+      
+        function addStar() {
+            const geometry = new THREE.SphereGeometry(0.25, 24, 24);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
             const star = new THREE.Mesh(geometry, material);
-    
             let [x, y, z] = Array(3).fill(0).map(()=> THREE.MathUtils.randFloatSpread(100))
             z = THREE.MathUtils.randFloatSpread(500)-250
             
@@ -101,53 +99,87 @@ export default function LoadingAnim() {
         animate();
 
         return () => {
-            if (starsRef.current && starsRef.current.contains(renderer.domElement)) {
+            // Cleanup Three.js resources
+            if (starsRef.current && renderer.domElement) {
                 starsRef.current.removeChild(renderer.domElement);
             }
+            renderer.dispose();
         };
-        
     }, []);
 
-    //Create hourglass
+    // Load GLB model
     useEffect(() => {
         // Initialize Three.js scene
         const scene = new THREE.Scene();
-        const dimensions = 200 / 300
-        const camera = new THREE.PerspectiveCamera(75, dimensions, 0.1, 1000)
+        const dimensions = 1000 / 1500;
+        const camera = new THREE.PerspectiveCamera(70, dimensions, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize( 200, 300)
-        hourglassRef.current.appendChild(renderer.domElement);
+        renderer.setSize(500, 7g00);
 
-        // Create hourglass geometry
-        const geometry = new THREE.CylinderGeometry(5, 5, 20, 32);
-        const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
-        const hourglass = new THREE.Mesh(geometry, material);
-        scene.add(hourglass);
+        // Add ambient light
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1); // Soft white light
+        scene.add(ambientLight);
 
-        camera.position.z = 30;  
+        // Optionally add a directional light
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 10);
+        directionalLight.position.set(10, 10, 10).normalize();
+        scene.add(directionalLight);
 
-        // Animation loop for spinning hourglass
+        
+        if (globeRef.current) {
+            globeRef.current.appendChild(renderer.domElement);
+        }
+        const objects = [
+            ["Coliseum", [0.5, 0.5, 0.5]],
+            ["Pyramid", [7, 7, 7]],
+            ["FlyingSaucer", [7, 7, 7]],
+            ["Hourglass", [2, 2, 2]],
+            ["SpaceShuttle", [0.5, 0.5, 0.5]],
+        ];
+        randObject = objects[Math.floor(Math.random() * objects.length)];
+        // Load GLB model using chrome.runtime.getURL
+        const loader = new GLTFLoader();
+        loader.load(
+            chrome.runtime.getURL('models/' + randObject[0] + '.glb'),
+            (gltf) => {
+                gltf.scene.scale.set(randObject[1][0], randObject[1][1], randObject[1][2]);
+                scene.add(gltf.scene);
+            },
+            undefined,
+            (error) => {
+                console.error('An error happened while loading the model:', error);
+            }
+        );
+    
+        camera.position.z = 30;
+        scene.rotation.z += 0.1; // Rotate on x-axis
+    
+        // Animation loop for the model
         const animate = function () {
             requestAnimationFrame(animate);
-            hourglass.rotation.x += 0.01; // Rotate on x-axis
-            hourglass.rotation.y += 0.01; // Rotate on y-axis
+            scene.rotation.y += 0.01; // Rotate on y-axis
             renderer.render(scene, camera);
         };
-
+    
         animate();
-
+    
+        // Cleanup function
         return () => {
-            if (hourglassRef.current && hourglassRef.current.contains(renderer.domElement)) {
-                hourglassRef.current.removeChild(renderer.domElement);
+            if (globeRef.current && globeRef.current.contains(renderer.domElement)) {
+                globeRef.current.removeChild(renderer.domElement);
             }
-        };        
+            renderer.dispose();
+        };
     }, []);
+    
 
     return (
         <div className="loading-overlay">
             <div className="loading-content">
                 {/* STARS */}
                 <div className="stars-container" ref={starsRef}></div>
+                {/* Spinning Globe */}
+                <div className="globe-container" ref={globeRef}></div>
                 {/* GRADIENT */}
                 <div className="gradient-container" ref={gradientRef}></div>
                 <div className="glow-container" ref={gradientRef}></div>

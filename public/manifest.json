@@ -20,6 +20,7 @@
   "web_accessible_resources": [
     {
       "resources": [
+        "models/*.glb"
         "assets/content.BfHP8E78.js",
         "content/style.css",
         "images/close.png",
