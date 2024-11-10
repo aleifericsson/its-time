@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { removeReact } from './ext-qol.jsx';
-import './resetAnim.css'; // Add this file for custom CSS styling
+//import './resetAnim.css'; // Add this file for custom CSS styling
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -172,7 +172,7 @@ export default function resetAnim() {
             const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
             const star = new THREE.Mesh(geometry, material);
             let [x, y, z] = Array(3).fill(0).map(()=> THREE.MathUtils.randFloatSpread(100))
-            z = THREE.MathUtils.randFloatSpread(500)-250
+            z = THREE.MathUtils.randFloatSpread(500)+250
             
             star.position.set(x,y,z);
             scene.add(star)
@@ -281,8 +281,8 @@ export default function resetAnim() {
                 {/* Spinning Globe */}
                 <div className="globe-container" ref={globeRef}></div>
                 {/* GRADIENT */}
-                <div className="gradient-container" ref={gradientRef}></div>
-                <div className="glow-container" ref={gradientRef}></div>
+                <div className="gradient-container-alt" ref={gradientRef}></div>
+                <div className="glow-container-alt" ref={gradientRef}></div>
                 <div className="hourglass-container"></div>
                 
                 {/* 3D Progress Bar */}

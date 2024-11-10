@@ -20,7 +20,7 @@ export default function LoadingAnim() {
                 }
                 return Math.min(oldProgress + 1, 100);
             });
-        }, 50); // Update progress every 50ms
+        }, 100); // Update progress every 50ms
 
         return () => clearInterval(interval); // Cleanup the interval on component unmount
     }, []);
@@ -171,13 +171,13 @@ export default function LoadingAnim() {
             const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
             const star = new THREE.Mesh(geometry, material);
             let [x, y, z] = Array(3).fill(0).map(()=> THREE.MathUtils.randFloatSpread(100))
-            z = THREE.MathUtils.randFloatSpread(500)-250
+            z = THREE.MathUtils.randFloatSpread(700)-350
             
             star.position.set(x,y,z);
             scene.add(star)
         }
     
-        Array(300).fill(0).forEach(()=>addStar())
+        Array(400).fill(0).forEach(()=>addStar())
         let speed = 0.02
         let rot_speed = 0.001
 
@@ -185,7 +185,7 @@ export default function LoadingAnim() {
         const animate = function () {
             requestAnimationFrame(animate);
             camera.position.z -= speed
-            speed += 0.015
+            speed += 0.01
             camera.rotation.z += rot_speed
             rot_speed += 0.0001
             if (earth)

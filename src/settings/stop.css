@@ -61,3 +61,21 @@ form.what {
     color: black;
     font-weight: 700;
 }
+
+button {
+    padding: 10px 15px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #d5a814;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 2;
+}
+
+button:hover {
+    background-color: #b38f1a;
+}
