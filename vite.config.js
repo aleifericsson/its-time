@@ -73,7 +73,7 @@ export default defineConfig(({ mode }) => {
         name: 'move-files-plugin',
          closeBundle() {
             if (isTempBuild) {
-              moveFilesToDist(); // COMMENT OUT IF YOU GET AN ERROR HERE
+              moveFilesToDist(); // COMMENT OUT IF YOU GET AN ENOENT ERROR
               console.log('\x1b[32m✓\x1b[35m files moved to dist!\x1b[0m');
             } else {
               delDistTemp(); 

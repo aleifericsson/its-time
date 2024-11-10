@@ -6,6 +6,7 @@ import generateMessage from '../prompt-testing.js'
 import { scrapePage } from '../content/wiki-scraper.js';
 
 const scrapedText = scrapePage();
+import { setStore } from '../content/storage.js';
 
 export default function form(){
     const [inputValue, setInputValue] = useState(''); // State for input value
@@ -16,6 +17,8 @@ export default function form(){
         const input = inputValue
         console.log('Submitted Value:', input); // Log the submitted value
         setInputValue(''); // Clear the input field after submit
+        setStore({"prompt":input})
+        setStore({"prompted":true})
         sendMessage({message:"loading_animation_start"})
         scrapePage().then(result => {
             generateMessage(input, result).then(result => {
