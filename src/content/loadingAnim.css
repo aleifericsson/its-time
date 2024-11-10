@@ -65,7 +65,7 @@
     left: 0;
     opacity: 0.2;
     background-color: blue; /* Initial color */
-    animation: gradient-animation 5s linear infinite; /* Apply the animation */
+    animation: gradient-animation 20s linear infinite; /* Apply the animation */
 }
 
 @keyframes gradient-animation {
