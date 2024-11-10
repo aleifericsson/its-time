@@ -1,5 +1,5 @@
 /* Container styling */
-.form {
+.form.what {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,7 +11,7 @@
 }
 
 /* Form styling */
-form {
+form.what {
     display: flex;
     flex-direction: column;
     width: 100%;                   /* 80% of the container's width */

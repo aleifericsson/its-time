@@ -1,6 +1,5 @@
 #root {
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
   z-index: 2;
   position:relative;
@@ -8,7 +7,6 @@
 
 body{
   min-width: 300px;
-  min-height: 200px;
 }
 
 .logo {
