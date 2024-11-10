@@ -65,21 +65,21 @@
     left: 0;
     opacity: 0.2;
     background-color: blue; /* Initial color */
-    animation: gradient-animation 5s linear infinite; /* Apply the animation */
+    animation: gradient-animation 10s linear infinite; /* Apply the animation */
 }
 
 @keyframes gradient-animation {
     0% {
-        background-color: blue;
+        background-color: rgb(242, 154, 71);
     }
     40% {
-        background-color: rgb(60, 0, 128);
+        background-color: rgb(248, 223, 29);
     }
     60% {
-        background-color: rgb(165, 23, 181);
+        background-color: rgb(179, 207, 39);
     }
     100% {
-        background-color: rgb(244, 56, 144);
+        background-color: rgb(25, 198, 71);
     }
 }
 
@@ -91,7 +91,7 @@
     left: 0;
     opacity: 0.4;
     background: radial-gradient(circle, white 0%, transparent 100%); /* Center white fading to transparent */
-    animation: glow-animation 5s linear infinite; /* Apply the animation */
+    animation: glow-animation 10s linear infinite; /* Apply the animation */
 }
 
 @keyframes glow-animation {
