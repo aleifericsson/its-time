@@ -38,7 +38,7 @@ export default function form(){
     return(
         <div className="form">
             <form onSubmit={handleSubmit}>
-                <img src="https://www.frlib.org/question-mark-2.png/@@images/image.png" alt="quest-mark" className="form-image" />
+            <img src="/images/question.png" alt="question-logo" className="form-image" />
                 <label>What do you want to change about this page?
                 <input type="text" value={inputValue} onChange={handleInputChange} placeholder="What If...?" />
                 </label>
