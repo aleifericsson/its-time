@@ -3,7 +3,6 @@ import { removeReact } from './ext-qol.jsx';
 import './LoadingAnim.css'; // Add this file for custom CSS styling
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { all } from 'three/webgpu';
 
 export default function LoadingAnim() {
     const [progress, setProgress] = useState(0);
@@ -60,12 +59,87 @@ export default function LoadingAnim() {
             new THREE.MeshBasicMaterial({map:cubeTexture})
         )
         scene.add(cube)
+        let loadedObject1 = null;
+        let loadedObject2 = null;
+        let loadedObject3 = null;
+
+        const objects = [
+            ["Coliseum", [0.5, 0.5, 0.5]],
+            ["Pyramid", [7, 7, 7]],
+            ["FlyingSaucer", [7, 7, 7]],
+            ["Hourglass", [2, 2, 2]],
+            ["SpaceShuttle", [0.5, 0.5, 0.5]],
+        ];
+
+        const randObject1 = objects[Math.floor(Math.random() * objects.length)];
+        //different random object
+        let randObject2 = objects[Math.floor(Math.random() * objects.length)];
+        while (randObject2[0] === randObject1[0]) {
+            randObject2 = objects[Math.floor(Math.random() * objects.length)];
+        }
+        //different random object
+        let randObject3 = objects[Math.floor(Math.random() * objects.length)];
+        while (randObject3[0] === randObject1[0] || randObject3[0] === randObject2[0]) {
+            randObject3 = objects[Math.floor(Math.random() * objects.length)];
+        }
+
+        // Load GLB models using chrome.runtime.getURL
+        const loader = new GLTFLoader();
+
+        const loadModel = (object, callback) => {
+            loader.load(
+                chrome.runtime.getURL('models/' + object[0] + '.glb'),
+                (gltf) => {
+                    // Set the scale based on the selected object
+                    gltf.scene.scale.set(object[1][0], object[1][1], object[1][2]);
+                    
+                    // Add the loaded model to the scene
+                    scene.add(gltf.scene);
+                    
+                    // Execute the callback with the loaded model
+                    callback(gltf.scene);
+                },
+                undefined,
+                (error) => {
+                    console.error('An error happened while loading the model:', error);
+                }
+            );
+        };
+
+        // Load the first object
+        loadModel(randObject1, (model) => {
+            loadedObject1 = model;
+            loadedObject1.position.z = -250;
+            loadedObject1.position.x = 5;
+        });
+
+        // Load the second object
+        loadModel(randObject2, (model) => {
+            loadedObject2 = model;
+            loadedObject2.position.z = -150;
+            loadedObject2.position.x = 15;
+        });
+
+        // Load the third object
+        loadModel(randObject3, (model) => {
+            loadedObject3 = model;
+            loadedObject3.position.z = -50;
+            loadedObject3.position.x = 25;
+        });
+
+
+        // Add ambient light
+        const ambientLight = new THREE.AmbientLight(0xffffff, 10); // Soft white light
+        scene.add(ambientLight);
         
         cube.position.z = -250
         cube.position.x = 10
-        earth.position.z = -60
+        earth.position.z = 0
         earth.position.x = -10
       
+
+
+
         function addStar() {
             const geometry = new THREE.SphereGeometry(0.25, 24, 24);
             const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
@@ -93,6 +167,22 @@ export default function LoadingAnim() {
             cube.rotation.x += 0.005
             cube.rotation.y += 0.005
             cube.position.z -= 0.8
+
+            if (loadedObject1) {
+                loadedObject1.rotation.y += 0.01;
+                loadedObject1.position.z += 1.2;
+            }
+
+            if (loadedObject2) {
+                loadedObject2.rotation.y += 0.01;
+                loadedObject2.position.z += 1.2;
+            }
+
+            if (loadedObject3) {
+                loadedObject3.rotation.y += 0.01;
+                loadedObject3.position.z += 1.2;
+            }
+
             renderer.render(scene, camera);
         };
 
@@ -107,49 +197,23 @@ export default function LoadingAnim() {
         };
     }, []);
 
-    // Load GLB model
+    //Load GLB model
     useEffect(() => {
         // Initialize Three.js scene
         const scene = new THREE.Scene();
         const dimensions = 1000 / 1500;
         const camera = new THREE.PerspectiveCamera(70, dimensions, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize(500, 7g00);
+        renderer.setSize(500, 700);
 
-        // Add ambient light
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1); // Soft white light
-        scene.add(ambientLight);
-
-        // Optionally add a directional light
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 10);
-        directionalLight.position.set(10, 10, 10).normalize();
-        scene.add(directionalLight);
+        
 
         
         if (globeRef.current) {
             globeRef.current.appendChild(renderer.domElement);
         }
-        const objects = [
-            ["Coliseum", [0.5, 0.5, 0.5]],
-            ["Pyramid", [7, 7, 7]],
-            ["FlyingSaucer", [7, 7, 7]],
-            ["Hourglass", [2, 2, 2]],
-            ["SpaceShuttle", [0.5, 0.5, 0.5]],
-        ];
-        randObject = objects[Math.floor(Math.random() * objects.length)];
-        // Load GLB model using chrome.runtime.getURL
-        const loader = new GLTFLoader();
-        loader.load(
-            chrome.runtime.getURL('models/' + randObject[0] + '.glb'),
-            (gltf) => {
-                gltf.scene.scale.set(randObject[1][0], randObject[1][1], randObject[1][2]);
-                scene.add(gltf.scene);
-            },
-            undefined,
-            (error) => {
-                console.error('An error happened while loading the model:', error);
-            }
-        );
+        // Declare a variable to store the loaded object
+        
     
         camera.position.z = 30;
         scene.rotation.z += 0.1; // Rotate on x-axis
@@ -183,8 +247,8 @@ export default function LoadingAnim() {
                 {/* GRADIENT */}
                 <div className="gradient-container" ref={gradientRef}></div>
                 <div className="glow-container" ref={gradientRef}></div>
-                {/* Spinning Hourglass */}
-                <div className="hourglass-container" ref={hourglassRef}></div>
+                {/* Spinning Hourglass
+                <div className="hourglass-container" ref={hourglassRef}></div> */}
                 
                 {/* 3D Progress Bar */}
                 <div className="progress-bar-container">
