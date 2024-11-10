@@ -49,3 +49,9 @@ form {
     color: #e28c14;
     font-weight: 500;
 }
+
+.message.prompt{
+    font-size: 1.3em;
+    color: black;
+    font-weight: 700;
+}
