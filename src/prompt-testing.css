@@ -1,4 +1,30 @@
 .new-section {
     font-weight: bold;
     background-color: rgb(105, 221, 230);
+    position: relative;
+    cursor: pointer;
+}
+
+/* Tooltip text style */
+.new-section::after {
+content: attr(data-tooltip); /* Display tooltip content from a data attribute */
+position: absolute;
+bottom: 100%; /* Position above the span */
+left: 50%;
+transform: translateX(-50%);
+background-color: #333;
+color: #fff;
+padding: 5px 10px;
+border-radius: 5px;
+white-space: nowrap;
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.3s ease;
+font-size: 12px;
+}
+
+/* Show the tooltip on hover */
+.new-section:hover::after {
+opacity: 1;
+visibility: visible;
 }

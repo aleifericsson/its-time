@@ -50,6 +50,13 @@ const findAll = (selector) => {
 }
 const write = (element, text) => {
     element.innerHTML = text;
+    // const newSections = document.querySelectorAll(".new-section");
+
+    // newSections.forEach((element, index) => {
+    //     if (explanations[index]) { // Ensure explanation exists for the element
+    //         element.setAttribute('data-tooltip', explanations[index]);
+    //     }
+    // });
 }
 
 const read = (element) =>{

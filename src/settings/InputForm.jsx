@@ -22,9 +22,7 @@ export default function form(){
         sendMessage({message:"loading_animation_start"})
         scrapePage().then(result => {
             generateMessage(input, result).then(result => {
-                sendMessage({message:"prompt", new_text: result['output-text']})
-                console.log('explanation:', result['explanation'])
-                console.log('flags:', result['flags'])
+                sendMessage({message:"prompt", new_text: result['output-text'], explanations: result['explanation']})
             })
         })
     };
