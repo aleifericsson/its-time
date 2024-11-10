@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { removeReact } from './ext-qol.jsx';
-import './resetAnim.css'; // Add this file for custom CSS styling
+import './LoadingAnim.css'; // Add this file for custom CSS styling
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -16,24 +16,20 @@ export default function resetAnim() {
             setProgress((oldProgress) => {
                 if (oldProgress === 100) {
                     clearInterval(interval);
-                    window.location.reload();
                     return 100;
                 }
                 return Math.min(oldProgress + 1, 100);
             });
         }, 50); // Update progress every 50ms
 
-        return () => {
-            clearInterval(interval)
-            window.location.reload();
-        }; // Cleanup the interval on component unmount
+        return () => clearInterval(interval); // Cleanup the interval on component unmount
     }, []);
 
     // Remove loading overlay after 5 seconds
     useEffect(() => {
         const timer = setTimeout(() => {
             removeReact();
-        }, 5000);
+        }, 10000);
 
         return () => clearTimeout(timer);
     }, []);
@@ -48,48 +44,23 @@ export default function resetAnim() {
         renderer.setSize(window.innerWidth, window.innerHeight);
         starsRef.current.appendChild(renderer.domElement);
 
-        camera.position.z = 30;   
-        
-        const earthTexture = new THREE.TextureLoader().load(await chrome.runtime.getURL('images/earth.jpg'))
-        console.log(chrome.runtime.getURL('images/earth.jpg'))
-        const earth = new THREE.Mesh(
-            new THREE.SphereGeometry(3,70,70),
-            new THREE.MeshBasicMaterial({map:earthTexture})
-        )
-        scene.add(earth)
-        const cubeTexture = new THREE.TextureLoader().load(await chrome.runtime.getURL('/images/cube.jpg'))
-        const cube = new THREE.Mesh(//shortand wow
-            new THREE.BoxGeometry(10,10,10),
-            new THREE.MeshBasicMaterial({map:cubeTexture})
-        )
-        scene.add(cube)
-        let loadedObject1 = null;
-        let loadedObject2 = null;
-        let loadedObject3 = null;
+        camera.position.z = -30;   
 
         const objects = [
             ["Coliseum", [0.5, 0.5, 0.5]],
             ["Pyramid", [7, 7, 7]],
             ["FlyingSaucer", [7, 7, 7]],
-            ["Hourglass", [2, 2, 2]],
+            ["Hourglass", [1.5, 1.5, 1.5]],
             ["SpaceShuttle", [0.5, 0.5, 0.5]],
+            ["Diplodocus", [0.015, 0.015, 0.015]],
+            ["Airplane", [7, 7, 7]],
+            ["Anubis", [3, 3, 3]],
+            ["Liberty", [9, 9, 9]],
+            ["Sailboat", [0.4, 0.4, 0.4]]
         ];
 
-        const randObject1 = objects[Math.floor(Math.random() * objects.length)];
-        //different random object
-        let randObject2 = objects[Math.floor(Math.random() * objects.length)];
-        while (randObject2[0] === randObject1[0]) {
-            randObject2 = objects[Math.floor(Math.random() * objects.length)];
-        }
-        //different random object
-        let randObject3 = objects[Math.floor(Math.random() * objects.length)];
-        while (randObject3[0] === randObject1[0] || randObject3[0] === randObject2[0]) {
-            randObject3 = objects[Math.floor(Math.random() * objects.length)];
-        }
-
-        // Load GLB models using chrome.runtime.getURL
+        earthObject = ["Earth", [0.1, 0.1, 0.1]];
         const loader = new GLTFLoader();
-
         const loadModel = (object, callback) => {
             loader.load(
                 chrome.runtime.getURL('models/' + object[0] + '.glb'),
@@ -110,25 +81,76 @@ export default function resetAnim() {
             );
         };
 
+        // const earthTexture = new THREE.TextureLoader().load(await chrome.runtime.getURL('images/earth.jpg'))
+        // console.log(chrome.runtime.getURL('images/earth.jpg'))
+        // const earth = new THREE.Mesh(
+        //     new THREE.SphereGeometry(3,70,70),
+        //     new THREE.MeshBasicMaterial({map:earthTexture})
+        // )
+        let earth = null;
+        loadModel(earthObject, (model) => {
+            earth = model;
+            earth.position.z = 600;
+            earth.position.x = -20;
+        });
+        //scene.add(earth)
+
+        const cubeTexture = new THREE.TextureLoader().load(await chrome.runtime.getURL('/images/cube.jpg'))
+        const cube = new THREE.Mesh(//shortand wow
+            new THREE.BoxGeometry(10,10,10),
+            new THREE.MeshBasicMaterial({map:cubeTexture})
+        )
+        scene.add(cube)
+        let loadedObject1 = null;
+        let loadedObject2 = null;
+        let loadedObject3 = null;
+        let loadedObject4 = null;
+
+        const randObject1 = objects[Math.floor(Math.random() * objects.length)];
+        //different random object
+        let randObject2 = objects[Math.floor(Math.random() * objects.length)];
+        while (randObject2[0] === randObject1[0]) {
+            randObject2 = objects[Math.floor(Math.random() * objects.length)];
+        }
+        //different random object
+        let randObject3 = objects[Math.floor(Math.random() * objects.length)];
+        while (randObject3[0] === randObject1[0] || randObject3[0] === randObject2[0]) {
+            randObject3 = objects[Math.floor(Math.random() * objects.length)];
+        }
+        //different random object
+        let randObject4 = objects[Math.floor(Math.random() * objects.length)];
+        while (randObject4[0] === randObject1[0] || randObject4[0] === randObject2[0] || randObject4[0] === randObject3[0]) {
+            randObject4 = objects[Math.floor(Math.random() * objects.length)];
+        }
+
+        // Load GLB models using chrome.runtime.getURL
+        
+        // Load the fourth object
+        loadModel(randObject4, (model) => {
+            loadedObject4 = model;
+            loadedObject4.position.z = 1200;
+            loadedObject4.position.x = 40;
+        });
+
         // Load the first object
         loadModel(randObject1, (model) => {
             loadedObject1 = model;
-            loadedObject1.position.z = -250;
-            loadedObject1.position.x = 5;
+            loadedObject1.position.z = 1000;
+            loadedObject1.position.x = -20;
         });
 
         // Load the second object
         loadModel(randObject2, (model) => {
             loadedObject2 = model;
-            loadedObject2.position.z = -150;
-            loadedObject2.position.x = 15;
+            loadedObject2.position.z = 700;
+            loadedObject2.position.x = 0;
         });
 
         // Load the third object
         loadModel(randObject3, (model) => {
             loadedObject3 = model;
-            loadedObject3.position.z = -50;
-            loadedObject3.position.x = 25;
+            loadedObject3.position.z = 500;
+            loadedObject3.position.x = 20;
         });
 
 
@@ -136,13 +158,13 @@ export default function resetAnim() {
         const ambientLight = new THREE.AmbientLight(0xffffff, 10); // Soft white light
         scene.add(ambientLight);
         
-        cube.position.z = -250
+        cube.position.z = 700
         cube.position.x = 10
-        earth.position.z = 0
-        earth.position.x = -10
-      
-
-
+        if (earth)
+        {
+            earth.position.z = -400
+            earth.position.x = -10
+        }
 
         function addStar() {
             const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -158,33 +180,41 @@ export default function resetAnim() {
         Array(300).fill(0).forEach(()=>addStar())
         let speed = 0.02
         let rot_speed = 0.001
-
+        const movementSpeed = 4;
         // Animation loop for stars
         const animate = function () {
             requestAnimationFrame(animate);
-            camera.position.z -= speed
+            camera.position.z += speed
             speed += 0.015
             camera.rotation.z += rot_speed
             rot_speed += 0.0001
-            earth.rotation.y += 0.005
-            earth.position.z -= 0.4
+            if (earth)
+            {
+                earth.rotation.y += 0.02
+                earth.position.z += 0.4
+            }
             cube.rotation.x += 0.005
             cube.rotation.y += 0.005
-            cube.position.z -= 0.8
+            cube.position.z += 0.8
 
             if (loadedObject1) {
                 loadedObject1.rotation.y += 0.01;
-                loadedObject1.position.z += 1.2;
+                loadedObject1.position.z -= movementSpeed;
             }
 
             if (loadedObject2) {
                 loadedObject2.rotation.y += 0.01;
-                loadedObject2.position.z += 1.2;
+                loadedObject2.position.z -= movementSpeed;
             }
 
             if (loadedObject3) {
                 loadedObject3.rotation.y += 0.01;
-                loadedObject3.position.z += 1.2;
+                loadedObject3.position.z -= movementSpeed;
+            }
+
+            if (loadedObject4) {
+                loadedObject4.rotation.y += 0.01;
+                loadedObject4.position.z -= movementSpeed;
             }
 
             renderer.render(scene, camera);
@@ -193,11 +223,12 @@ export default function resetAnim() {
         animate();
 
         return () => {
-            // Cleanup Three.js resources
+            /*
             if (starsRef.current && renderer.domElement) {
                 starsRef.current.removeChild(renderer.domElement);
             }
             renderer.dispose();
+            */
         };
     }, []);
 
@@ -233,10 +264,13 @@ export default function resetAnim() {
     
         // Cleanup function
         return () => {
+            /*
             if (globeRef.current && globeRef.current.contains(renderer.domElement)) {
                 globeRef.current.removeChild(renderer.domElement);
             }
+                
             renderer.dispose();
+            */
         };
     }, []);
     
@@ -251,8 +285,7 @@ export default function resetAnim() {
                 {/* GRADIENT */}
                 <div className="gradient-container" ref={gradientRef}></div>
                 <div className="glow-container" ref={gradientRef}></div>
-                {/* Spinning Hourglass
-                <div className="hourglass-container" ref={hourglassRef}></div> */}
+                <div className="hourglass-container"></div>
                 
                 {/* 3D Progress Bar */}
                 <div className="progress-bar-container">
