@@ -20,7 +20,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "assets/content.BfHP8E78.js",
+        "assets/content.DGppkn6o.js",
         "content/style.css",
         "images/close.png",
         "images/earth.jpg",
@@ -34,7 +34,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/content.BfHP8E78.js"
+        "assets/content.DGppkn6o.js"
       ],
       "matches": [
         "http://*/*",
