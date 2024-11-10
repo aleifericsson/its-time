@@ -33,7 +33,7 @@ export default async function generateMessage(userInput, scrapedText) {
     model: 'gpt-4o',
   });
 
-  // console.log(chatCompletion);
+  console.log(chatCompletion);
 
   const message = chatCompletion.choices[0].message.content;
 

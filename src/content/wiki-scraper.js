@@ -50,7 +50,7 @@ async function scrapePage(){ //ONLY AVAILABLE  FROM SETTINGS SCRIPT
     })
 }
 
-const changeText = (sample_text) =>{
+const changeText = (sample_text, explanations) =>{
     const textele = find("#mw-content-text")
     
     const infobox = find(".infobox")
@@ -63,7 +63,15 @@ const changeText = (sample_text) =>{
             render(textele, figure)
         }
         render(textele, newtext)
-        write(newtext, sample_text)
+
+        newtext.innerHTML = sample_text;
+        const newSections = document.querySelectorAll(".new-section");
+
+        newSections.forEach((element, index) => {
+            if (explanations[index]) { // Ensure explanation exists for the element
+                element.setAttribute('data-tooltip', explanations[index]);
+            }
+        });
     }
     else{
         console.log("nah")

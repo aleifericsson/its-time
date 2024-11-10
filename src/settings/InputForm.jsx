@@ -36,11 +36,11 @@ export default function form(){
     return(
         <div className="form">
             <form onSubmit={handleSubmit}>
-            <img src="/images/question.png" alt="question-logo" className="form-image" />
+                <img src="/images/question.png" alt="question-logo" className="form-image" />
                 <label>What do you want to change about this page?
                 <input type="text" value={inputValue} onChange={handleInputChange} placeholder="What If...?" />
                 </label>
-                <button type="submit">Submit</button> {/* Submit button */}
+                <button type="submit">Enter the timestream <img src="/images/Time-Travelling-Image.webp" width={30} alt="time travel image" /></button> {/* Submit button */}
             </form>
 
         </div>
