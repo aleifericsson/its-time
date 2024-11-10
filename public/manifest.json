@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "What If?",
   "icons": {
-    "256": "images/cropped_logo.png"
+    "256": "images/small_logo.png"
   },
   "version": "1.0.0",
   "action": {
