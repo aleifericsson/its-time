@@ -55,17 +55,22 @@ const changeText = (sample_text, explanations) =>{
     const infobox = find(".infobox")
     const newtext = create("p")
     if (textele){
+        console.log(1);
         const figure = textele.querySelector("figure")
         write(textele, " ")
-        render(textele, infobox)
+        console.log(2)
+        if (infobox){
+            render(textele, infobox)
+        } 
         if (figure){
+            console.log("error here")
             render(textele, figure)
         }
+        console.log(3)
         render(textele, newtext)
-
         newtext.innerHTML = sample_text;
         const newSections = document.querySelectorAll(".new-section");
-
+        console.log(newSections)
         newSections.forEach((element, index) => {
             if (explanations[index]) { // Ensure explanation exists for the element
                 element.setAttribute('data-tooltip', explanations[index]);

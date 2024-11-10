@@ -1,8 +1,10 @@
 .new-section {
     font-weight: bold;
-    background-color: rgb(105, 221, 230);
+    background-color: rgba(223, 244, 64, 0.685);
     position: relative;
     cursor: pointer;
+    line-height: 0;
+    padding-block: 5px;
 }
 
 /* Tooltip text style */
@@ -16,11 +18,17 @@ background-color: #333;
 color: #fff;
 padding: 5px 10px;
 border-radius: 5px;
-white-space: nowrap;
+white-space: normal; /* Allows text to wrap */
+min-width: 200px;
+width: 500px;
+max-width: 500px; /* Set the maximum width for the tooltip */
+word-wrap: break-word; /* Break long words to wrap within max-width */
 opacity: 0;
 visibility: hidden;
 transition: opacity 0.3s ease;
 font-size: 12px;
+line-height: normal;
+cursor: normal;
 }
 
 /* Show the tooltip on hover */
