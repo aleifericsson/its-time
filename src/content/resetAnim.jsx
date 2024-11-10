@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { removeReact } from './ext-qol.jsx';
-import './LoadingAnim.css'; // Add this file for custom CSS styling
+import './resetAnim.css'; // Add this file for custom CSS styling
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 

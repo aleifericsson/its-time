@@ -11,7 +11,7 @@ export default function Finished({prompt}){
                 <div className="message prompt">{prompt}</div>
                 <div className="message">Now you must live with your changes</div>
                 <div className="message">{"(jk, refresh or press reset to revert to the present)"}</div>
-                <button onClick={() => {
+                <button className="button" onClick={() => {
                     sendMessage({message: "reset"})
                 }}>Reset</button>
             </form>

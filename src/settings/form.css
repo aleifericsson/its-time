@@ -69,6 +69,7 @@ button {
     display: flex;
     align-items: center;
     gap: 2;
+    margin-top: 5px;
 }
 
 button:hover {
