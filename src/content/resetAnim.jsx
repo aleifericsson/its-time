@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import { removeReact } from './ext-qol.jsx';
-import './LoadingAnim.css'; // Add this file for custom CSS styling
+import './resetAnim.css'; // Add this file for custom CSS styling
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-export default function LoadingAnim() {
+export default function resetAnim() {
     const [progress, setProgress] = useState(0);
     const progressRef = useRef(null);
     const globeRef = useRef(null);
@@ -16,13 +16,17 @@ export default function LoadingAnim() {
             setProgress((oldProgress) => {
                 if (oldProgress === 100) {
                     clearInterval(interval);
+                    window.location.reload();
                     return 100;
                 }
                 return Math.min(oldProgress + 1, 100);
             });
         }, 50); // Update progress every 50ms
 
-        return () => clearInterval(interval); // Cleanup the interval on component unmount
+        return () => {
+            clearInterval(interval)
+            window.location.reload();
+        }; // Cleanup the interval on component unmount
     }, []);
 
     // Remove loading overlay after 5 seconds
@@ -189,12 +193,11 @@ export default function LoadingAnim() {
         animate();
 
         return () => {
-            /*
+            // Cleanup Three.js resources
             if (starsRef.current && renderer.domElement) {
                 starsRef.current.removeChild(renderer.domElement);
             }
             renderer.dispose();
-            */
         };
     }, []);
 
@@ -230,13 +233,10 @@ export default function LoadingAnim() {
     
         // Cleanup function
         return () => {
-            /*
             if (globeRef.current && globeRef.current.contains(renderer.domElement)) {
                 globeRef.current.removeChild(renderer.domElement);
             }
-                
             renderer.dispose();
-            */
         };
     }, []);
     
