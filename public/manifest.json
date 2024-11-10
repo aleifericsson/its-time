@@ -20,7 +20,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "assets/content.BvvQHLT_.js",
+        "assets/content.Dp29Vswh.js",
         "content/style.css",
         "images/*.png",
         "images/*.jpg",
@@ -34,7 +34,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/content.BvvQHLT_.js"
+        "assets/content.Dp29Vswh.js"
       ],
       "matches": [
         "http://*/*",
