@@ -4,8 +4,6 @@ import './form.css'
 import { sendMessage } from '../content/message';
 import generateMessage from '../prompt-testing.js'
 import { scrapePage } from '../content/wiki-scraper.js';
-
-const scrapedText = scrapePage();
 import { setStore } from '../content/storage.js';
 
 export default function form(){
@@ -22,6 +20,7 @@ export default function form(){
         sendMessage({message:"loading_animation_start"})
         scrapePage().then(result => {
             generateMessage(input, result).then(result => {
+                console.log("something")
                 sendMessage({message:"prompt", new_text: result['output-text']})
                 console.log('explanation:', result['explanation'])
                 console.log('flags:', result['flags'])

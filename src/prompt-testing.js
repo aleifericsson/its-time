@@ -6,6 +6,8 @@ const client = new OpenAI({
 });
 
 export default async function generateMessage(userInput, scrapedText) {
+  
+  console.log("top")
 
   const example = `There have been several historical episodes of <span class='new-section'>governments of developing countries</span> borrowing in quantities beyond their ability to repay.`
 
@@ -37,6 +39,11 @@ export default async function generateMessage(userInput, scrapedText) {
 
   const message = chatCompletion.choices[0].message.content;
 
+  console.log(message)
+
   let result = message.slice(8, message.length - 4);
+
+  console.log(result)
+
   return (JSON.parse(result))
 }
