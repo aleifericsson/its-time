@@ -48,17 +48,33 @@ function isDevMode(){
   else return false
 }
 
-function getCurrentPage() { //ONLY AVAILABLE FROM SETTINGS SCRIPT
+function getCurrentPage() {
   return new Promise((resolve, reject) => {
-    // Query the active tab in the last focused window
-    chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-      const tab = tabs[0]; // Get the first tab object in the array
-      if (tab && tab.url) {
-        resolve(tab.url);
-      } else {
-        reject(new Error("No active tab with a URL found"));
-      }
-    });
+    // Check if chrome.tabs API is available
+    if (!chrome.tabs || !chrome.tabs.query) {
+      console.error("chrome.tabs API is unavailable.");
+      return reject("chrome.tabs API is not accessible.");
+    }
+
+    try {
+      chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+        if (chrome.runtime.lastError) {
+          console.error("Chrome runtime error:", chrome.runtime.lastError);
+          return reject("Failed to query tabs.");
+        }
+        const tab = tabs[0];
+        if (tab && tab.url) {
+          console.log("Tab URL:", tab.url);
+          resolve(tab.url);
+        } else {
+          console.log("No active tab with a URL found.");
+          reject("No active tab with a URL found.");
+        }
+      });
+    } catch (error) {
+      console.error("Unexpected error in getCurrentPage:", error);
+      reject("Unexpected error occurred.");
+    }
   });
 }
 
