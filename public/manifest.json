@@ -24,7 +24,8 @@
         "content/style.css",
         "images/close.png",
         "images/earth.jpg",
-        "images/cube.jpg"
+        "images/cube.jpg",
+        "models/*.glb"
       ],
       "matches": [
         "<all_urls>"
