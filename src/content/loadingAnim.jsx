@@ -29,7 +29,7 @@ export default function LoadingAnim() {
     useEffect(() => {
         const timer = setTimeout(() => {
             removeReact();
-        }, 5000);
+        }, 10000);
 
         return () => clearTimeout(timer);
     }, []);
@@ -69,6 +69,7 @@ export default function LoadingAnim() {
             ["FlyingSaucer", [7, 7, 7]],
             ["Hourglass", [2, 2, 2]],
             ["SpaceShuttle", [0.5, 0.5, 0.5]],
+            ["Diplodocus", [0.015, 0.015, 0.015]],
         ];
 
         const randObject1 = objects[Math.floor(Math.random() * objects.length)];
@@ -109,22 +110,22 @@ export default function LoadingAnim() {
         // Load the first object
         loadModel(randObject1, (model) => {
             loadedObject1 = model;
-            loadedObject1.position.z = -250;
-            loadedObject1.position.x = 5;
+            loadedObject1.position.z = -700;
+            loadedObject1.position.x = -20;
         });
 
         // Load the second object
         loadModel(randObject2, (model) => {
             loadedObject2 = model;
-            loadedObject2.position.z = -150;
-            loadedObject2.position.x = 15;
+            loadedObject2.position.z = -550;
+            loadedObject2.position.x = 0;
         });
 
         // Load the third object
         loadModel(randObject3, (model) => {
             loadedObject3 = model;
-            loadedObject3.position.z = -50;
-            loadedObject3.position.x = 25;
+            loadedObject3.position.z = -400;
+            loadedObject3.position.x = 20;
         });
 
 
@@ -132,13 +133,10 @@ export default function LoadingAnim() {
         const ambientLight = new THREE.AmbientLight(0xffffff, 10); // Soft white light
         scene.add(ambientLight);
         
-        cube.position.z = -250
+        cube.position.z = -700
         cube.position.x = 10
-        earth.position.z = 0
+        earth.position.z = -400
         earth.position.x = -10
-      
-
-
 
         function addStar() {
             const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -170,17 +168,17 @@ export default function LoadingAnim() {
 
             if (loadedObject1) {
                 loadedObject1.rotation.y += 0.01;
-                loadedObject1.position.z += 1.2;
+                loadedObject1.position.z += 4;
             }
 
             if (loadedObject2) {
                 loadedObject2.rotation.y += 0.01;
-                loadedObject2.position.z += 1.2;
+                loadedObject2.position.z += 4;
             }
 
             if (loadedObject3) {
                 loadedObject3.rotation.y += 0.01;
-                loadedObject3.position.z += 1.2;
+                loadedObject3.position.z += 4;
             }
 
             renderer.render(scene, camera);

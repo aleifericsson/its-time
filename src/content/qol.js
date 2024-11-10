@@ -49,7 +49,7 @@ const findAll = (selector) => {
     return document.querySelectorAll(selector);
 }
 const write = (element, text) => {
-    element.textContent = text;
+    element.innerHTML = text;
 }
 
 const read = (element) =>{
