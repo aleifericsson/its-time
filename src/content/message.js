@@ -37,7 +37,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         injectReact(LoadingAnim, getRoot())
         setStore({"loadingAnim":true})
     }
-    if (message.message == "proompt"){ //{message, new_text}
+    if (message.message == "prompt"){ //{message, new_text}
         console.log(message.new_text)
         changeText(message.new_text)
     }

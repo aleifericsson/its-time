@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './form.css'
 import { sendMessage } from '../content/message';
 import generateMessage from '../prompt-testing.js'
+import { scrapePage } from '../content/wiki-scraper.js';
+
+const scrapedText = scrapePage();
 
 export default function form(){
     const [inputValue, setInputValue] = useState(''); // State for input value
@@ -14,9 +17,12 @@ export default function form(){
         console.log('Submitted Value:', input); // Log the submitted value
         setInputValue(''); // Clear the input field after submit
         sendMessage({message:"loading_animation_start"})
-        generateMessage(input).then(result => {
-            sendMessage({message:"proompt", new_text: result})
-            console.log(result)
+        scrapePage().then(result => {
+            generateMessage(input, result).then(result => {
+                sendMessage({message:"prompt", new_text: result['output-text']})
+                console.log('explanation:', result['explanation'])
+                console.log('flags:', result['flags'])
+            })
         })
     };
 
