@@ -28,7 +28,6 @@ export default function resetAnim() {
     // Remove loading overlay after 5 seconds
     useEffect(() => {
         const timer = setTimeout(() => {
-            window.location.reload()
             removeReact();
         }, 10000);
 
@@ -242,9 +241,6 @@ export default function resetAnim() {
         const renderer = new THREE.WebGLRenderer({ alpha: true });
         renderer.setSize(500, 700);
 
-        
-
-        
         if (globeRef.current) {
             globeRef.current.appendChild(renderer.domElement);
         }
