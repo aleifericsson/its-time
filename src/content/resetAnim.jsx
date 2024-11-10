@@ -28,8 +28,9 @@ export default function resetAnim() {
     // Remove loading overlay after 5 seconds
     useEffect(() => {
         const timer = setTimeout(() => {
+            window.location.reload()
             removeReact();
-        }, 10000);
+        }, 5000);
 
         return () => clearTimeout(timer);
     }, []);
