@@ -7,9 +7,13 @@ import Stop from './settings/stop.jsx'
 import Finished from './settings/finished.jsx'
 import { getAllStorage } from './content/storage.js'
 
+let url = ""
+
 getAllStorage().then((result) => {
 getCurrentPage().then(page =>{
   if (page && page.includes("wikipedia")){
+    console.log("page:", page)
+    url = page
     console.log(result.prompted)
     if (result.prompted){
       createRoot(document.getElementById('root')).render(
@@ -20,9 +24,7 @@ getCurrentPage().then(page =>{
     }
     else{
       createRoot(document.getElementById('root')).render(
-        <StrictMode>
           <Form />
-        </StrictMode>,
       )
 
     }
@@ -39,3 +41,5 @@ getCurrentPage().then(page =>{
 
 //settings3d()
 //fireship3d()
+
+export {url}

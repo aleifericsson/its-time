@@ -1,8 +1,10 @@
+import { url } from "../main";
 import { getCurrentPage } from "./ext-qol";
 import { create, find, render, write } from "./qol";
 
 async function scrapePage(){ //ONLY AVAILABLE  FROM SETTINGS SCRIPT
-    return getCurrentPage().then(async (result) => {
+        let result = url
+        console.log("url", result)
         let articleName = ""
         if (result.includes("wikipedia.org/wiki")) {
             articleName = result.split("/wiki/")[1];
@@ -44,19 +46,16 @@ async function scrapePage(){ //ONLY AVAILABLE  FROM SETTINGS SCRIPT
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
-        
-            console.log(text);
             return text;
-    })
 }
 
 const changeText = (sample_text, explanations) =>{
-    const textele = find("#mw-content-text")
-    
+    console.log("changed")
+    const textele = find(".mw-content-ltr.mw-parser-output")
     const infobox = find(".infobox")
     const newtext = create("p")
     if (textele){
-        const figure = textele.find("figure")
+        const figure = textele.querySelector("figure")
         write(textele, " ")
         render(textele, infobox)
         if (figure){
