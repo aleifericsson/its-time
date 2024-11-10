@@ -45,48 +45,22 @@ export default function LoadingAnim() {
         starsRef.current.appendChild(renderer.domElement);
 
         camera.position.z = 30;   
-        
-        const earthTexture = new THREE.TextureLoader().load(await chrome.runtime.getURL('images/earth.jpg'))
-        console.log(chrome.runtime.getURL('images/earth.jpg'))
-        const earth = new THREE.Mesh(
-            new THREE.SphereGeometry(3,70,70),
-            new THREE.MeshBasicMaterial({map:earthTexture})
-        )
-        scene.add(earth)
-        const cubeTexture = new THREE.TextureLoader().load(await chrome.runtime.getURL('/images/cube.jpg'))
-        const cube = new THREE.Mesh(//shortand wow
-            new THREE.BoxGeometry(10,10,10),
-            new THREE.MeshBasicMaterial({map:cubeTexture})
-        )
-        scene.add(cube)
-        let loadedObject1 = null;
-        let loadedObject2 = null;
-        let loadedObject3 = null;
 
         const objects = [
             ["Coliseum", [0.5, 0.5, 0.5]],
             ["Pyramid", [7, 7, 7]],
             ["FlyingSaucer", [7, 7, 7]],
-            ["Hourglass", [2, 2, 2]],
+            ["Hourglass", [1.5, 1.5, 1.5]],
             ["SpaceShuttle", [0.5, 0.5, 0.5]],
             ["Diplodocus", [0.015, 0.015, 0.015]],
+            ["Airplane", [7, 7, 7]],
+            ["Anubis", [3, 3, 3]],
+            ["Liberty", [9, 9, 9]],
+            ["Sailboat", [0.4, 0.4, 0.4]]
         ];
 
-        const randObject1 = objects[Math.floor(Math.random() * objects.length)];
-        //different random object
-        let randObject2 = objects[Math.floor(Math.random() * objects.length)];
-        while (randObject2[0] === randObject1[0]) {
-            randObject2 = objects[Math.floor(Math.random() * objects.length)];
-        }
-        //different random object
-        let randObject3 = objects[Math.floor(Math.random() * objects.length)];
-        while (randObject3[0] === randObject1[0] || randObject3[0] === randObject2[0]) {
-            randObject3 = objects[Math.floor(Math.random() * objects.length)];
-        }
-
-        // Load GLB models using chrome.runtime.getURL
+        earthObject = ["Earth", [0.1, 0.1, 0.1]];
         const loader = new GLTFLoader();
-
         const loadModel = (object, callback) => {
             loader.load(
                 chrome.runtime.getURL('models/' + object[0] + '.glb'),
@@ -107,24 +81,75 @@ export default function LoadingAnim() {
             );
         };
 
+        // const earthTexture = new THREE.TextureLoader().load(await chrome.runtime.getURL('images/earth.jpg'))
+        // console.log(chrome.runtime.getURL('images/earth.jpg'))
+        // const earth = new THREE.Mesh(
+        //     new THREE.SphereGeometry(3,70,70),
+        //     new THREE.MeshBasicMaterial({map:earthTexture})
+        // )
+        let earth = null;
+        loadModel(earthObject, (model) => {
+            earth = model;
+            earth.position.z = -700;
+            earth.position.x = -20;
+        });
+        //scene.add(earth)
+
+        const cubeTexture = new THREE.TextureLoader().load(await chrome.runtime.getURL('/images/cube.jpg'))
+        const cube = new THREE.Mesh(//shortand wow
+            new THREE.BoxGeometry(10,10,10),
+            new THREE.MeshBasicMaterial({map:cubeTexture})
+        )
+        scene.add(cube)
+        let loadedObject1 = null;
+        let loadedObject2 = null;
+        let loadedObject3 = null;
+        let loadedObject4 = null;
+
+        const randObject1 = objects[Math.floor(Math.random() * objects.length)];
+        //different random object
+        let randObject2 = objects[Math.floor(Math.random() * objects.length)];
+        while (randObject2[0] === randObject1[0]) {
+            randObject2 = objects[Math.floor(Math.random() * objects.length)];
+        }
+        //different random object
+        let randObject3 = objects[Math.floor(Math.random() * objects.length)];
+        while (randObject3[0] === randObject1[0] || randObject3[0] === randObject2[0]) {
+            randObject3 = objects[Math.floor(Math.random() * objects.length)];
+        }
+        //different random object
+        let randObject4 = objects[Math.floor(Math.random() * objects.length)];
+        while (randObject4[0] === randObject1[0] || randObject4[0] === randObject2[0] || randObject4[0] === randObject3[0]) {
+            randObject4 = objects[Math.floor(Math.random() * objects.length)];
+        }
+
+        // Load GLB models using chrome.runtime.getURL
+        
+        // Load the fourth object
+        loadModel(randObject4, (model) => {
+            loadedObject4 = model;
+            loadedObject4.position.z = -1200;
+            loadedObject4.position.x = 40;
+        });
+
         // Load the first object
         loadModel(randObject1, (model) => {
             loadedObject1 = model;
-            loadedObject1.position.z = -700;
+            loadedObject1.position.z = -1000;
             loadedObject1.position.x = -20;
         });
 
         // Load the second object
         loadModel(randObject2, (model) => {
             loadedObject2 = model;
-            loadedObject2.position.z = -550;
+            loadedObject2.position.z = -700;
             loadedObject2.position.x = 0;
         });
 
         // Load the third object
         loadModel(randObject3, (model) => {
             loadedObject3 = model;
-            loadedObject3.position.z = -400;
+            loadedObject3.position.z = -500;
             loadedObject3.position.x = 20;
         });
 
@@ -135,8 +160,11 @@ export default function LoadingAnim() {
         
         cube.position.z = -700
         cube.position.x = 10
-        earth.position.z = -400
-        earth.position.x = -10
+        if (earth)
+        {
+            earth.position.z = -400
+            earth.position.x = -10
+        }
 
         function addStar() {
             const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -160,8 +188,11 @@ export default function LoadingAnim() {
             speed += 0.015
             camera.rotation.z += rot_speed
             rot_speed += 0.0001
-            earth.rotation.y += 0.005
-            earth.position.z -= 0.4
+            if (earth)
+            {
+                earth.rotation.y += 0.02
+                earth.position.z -= 0.4
+            }
             cube.rotation.x += 0.005
             cube.rotation.y += 0.005
             cube.position.z -= 0.8
@@ -179,6 +210,11 @@ export default function LoadingAnim() {
             if (loadedObject3) {
                 loadedObject3.rotation.y += 0.01;
                 loadedObject3.position.z += 4;
+            }
+
+            if (loadedObject4) {
+                loadedObject4.rotation.y += 0.01;
+                loadedObject4.position.z += 4;
             }
 
             renderer.render(scene, camera);
