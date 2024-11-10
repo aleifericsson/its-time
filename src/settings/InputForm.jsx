@@ -31,10 +31,7 @@ export default function form(){
         sendMessage({message:"loading_animation_start"})
         scrapePage().then(result => {
             generateMessage(input, result).then(result => {
-                console.log("something")
-                sendMessage({message:"prompt", new_text: result['output-text']})
-                console.log('explanation:', result['explanation'])
-                console.log('flags:', result['flags'])
+                sendMessage({message:"prompt", new_text: result['output-text'], explanations: result['explanation']})
             })
         })
     };
@@ -58,11 +55,11 @@ export default function form(){
         return(
             <div className="form what">
                 <form onSubmit={handleSubmit} className="what">
-                <img src="/images/question.png" alt="question-logo" className="form-image" />
+                    <img src="/images/question.png" alt="question-logo" className="form-image" />
                     <div>How do you want to change the past?
                     <input type="text" value={inputValue} onChange={handleInputChange} placeholder="What If...?" />
                     </div>
-                    <button type="submit">Submit</button> {/* Submit button */}
+                    <button type="submit">Enter the timestream <img src="/images/Time-Travelling-Image.webp" width={30} alt="time travel image" /></button> {/* Submit button */}
                 </form>
     
             </div>

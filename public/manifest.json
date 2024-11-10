@@ -21,7 +21,11 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "assets/content.iNasvSV6.js",
+<<<<<<< HEAD
+        "assets/content.6MotjbgR.js",
+=======
+        "assets/content.Dj8Egzu3.js",
+>>>>>>> 243c96111e4e9da2e362e25b0721e0294b44517a
         "content/style.css",
         "images/*.png",
         "images/*.jpg",
