@@ -1,5 +1,5 @@
 /* Container styling */
-.form {
+.form.what {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,7 +11,7 @@
 }
 
 /* Form styling */
-form {
+form.what {
     display: flex;
     flex-direction: column;
     width: 100%;                   /* 80% of the container's width */
@@ -66,9 +66,16 @@ button {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 2;
 }
 
 button:hover {
     background-color: #005bb5;
+}
+
+button > img {
+    margin-left: 5px;
 }
 

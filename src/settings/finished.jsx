@@ -4,8 +4,8 @@ import './stop.css'
 export default function Finished({prompt}){
 
     return(
-        <div className="form">
-            <form>
+        <div className="form what" >
+            <form className="what">
                 <img src="/images/time.jpg" alt="time" className="form-image" />
                 <div className="message">You have changed the past!</div>
                 <div className="message prompt">{prompt}</div>

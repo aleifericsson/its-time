@@ -18,7 +18,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     }
     if (message.message === "prompt"){ //{message, new_text}
         console.log(message.new_text)
-        changeText(message.new_text)
+        changeText(message.new_text, message.explanations)
         setStore({"new_text":message.new_text})
     }
     if(message.message === "reset"){

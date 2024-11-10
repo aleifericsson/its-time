@@ -49,20 +49,33 @@ async function scrapePage(){ //ONLY AVAILABLE  FROM SETTINGS SCRIPT
             return text;
 }
 
-const changeText = (sample_text) =>{
+const changeText = (sample_text, explanations) =>{
     console.log("changed")
     const textele = find(".mw-content-ltr.mw-parser-output")
     const infobox = find(".infobox")
     const newtext = create("p")
     if (textele){
+        console.log(1);
         const figure = textele.querySelector("figure")
         write(textele, " ")
-        render(textele, infobox)
+        console.log(2)
+        if (infobox){
+            render(textele, infobox)
+        } 
         if (figure){
+            console.log("error here")
             render(textele, figure)
         }
+        console.log(3)
         render(textele, newtext)
-        write(newtext, sample_text)
+        newtext.innerHTML = sample_text;
+        const newSections = document.querySelectorAll(".new-section");
+        console.log(newSections)
+        newSections.forEach((element, index) => {
+            if (explanations[index]) { // Ensure explanation exists for the element
+                element.setAttribute('data-tooltip', explanations[index]);
+            }
+        });
     }
     else{
         console.log("nah")
