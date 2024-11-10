@@ -62,7 +62,7 @@ form.what {
     font-weight: 700;
 }
 
-button {
+button.button.what {
     padding: 10px 15px;
     font-size: 1em;
     color: #fff;
@@ -76,6 +76,6 @@ button {
     gap: 2;
 }
 
-button:hover {
+button.button.what:hover {
     background-color: #b38f1a;
 }

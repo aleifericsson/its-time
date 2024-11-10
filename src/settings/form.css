@@ -57,11 +57,11 @@ input[type="text"]:focus {
 }
 
 /* Button styling */
-button {
+button.button.what {
     padding: 10px 15px;
     font-size: 1em;
     color: #fff;
-    background-color: #c1ae1a;
+    background-color: #d5a814;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -72,11 +72,11 @@ button {
     margin-top: 10px;
 }
 
-button:hover {
-    background-color: #8e8121;
+button.button.what:hover {
+    background-color: #b38f1a;
 }
 
-button > img {
+button.button.what > img {
     margin-left: 5px;
 }
 

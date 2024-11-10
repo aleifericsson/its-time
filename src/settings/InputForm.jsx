@@ -59,7 +59,7 @@ export default function form(){
                     <div>How do you want to change the past?
                     <input type="text" value={inputValue} onChange={handleInputChange} placeholder="What If...?" />
                     </div>
-                    <button type="submit" className="button">Enter the timestream <img src="/images/Time-Travelling-Image.webp" width={30} alt="time travel image" /></button> {/* Submit button */}
+                    <button type="submit" className="button what">Enter the timestream <img src="/images/Time-Travelling-Image.webp" width={30} alt="time travel image" /></button> {/* Submit button */}
                 </form>
     
             </div>
