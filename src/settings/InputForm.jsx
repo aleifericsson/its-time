@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './form.css'
 import { sendMessage } from '../content/message';
 import generateMessage from '../prompt-testing.js'
+import { setStore } from '../content/storage.js';
 
 export default function form(){
     const [inputValue, setInputValue] = useState(''); // State for input value
@@ -13,6 +14,8 @@ export default function form(){
         const input = inputValue
         console.log('Submitted Value:', input); // Log the submitted value
         setInputValue(''); // Clear the input field after submit
+        setStore({"prompt":input})
+        setStore({"prompted":true})
         sendMessage({message:"loading_animation_start"})
         generateMessage(input).then(result => {
             sendMessage({message:"proompt", new_text: result})

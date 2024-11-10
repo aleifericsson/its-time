@@ -1,18 +1,33 @@
 import { getRoot, injectReact, isRendered, removeReact } from "./ext-qol";
-import Popup from "./Popup.jsx";
 import { detect, undetect } from "./qol";
 
-let popup_pos = {x: 300, y: 500}
-
 const setStore = (key_obj) => { //key_obj example: {detecting: false}
-    chrome.storage.local.set(key_obj).then(() => {
-        //console.log("Value is set");
-    });    
+    chrome.storage.local.set(key_obj)
+}
+
+const setSessionStore = (key_obj) => { //key_obj example: {detecting: false}
+    chrome.storage.session.set(key_obj)
+}
+
+const clearStore =() =>{
+    chrome.storage.local.clear();
 }
 
 const getStore = (key) => { // key example: "detecting"
     return new Promise((resolve, reject) => {
         chrome.storage.local.get(key, (results) => {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError); // In case of an error
+            } else {
+                resolve(results); // Return the value for the key
+            }
+        });
+    });
+};
+
+const getStoreSession = (key) => { // key example: "detecting"
+    return new Promise((resolve, reject) => {
+        chrome.storage.session.get(key, (results) => {
             if (chrome.runtime.lastError) {
                 reject(chrome.runtime.lastError); // In case of an error
             } else {
@@ -50,7 +65,7 @@ const updateSettingsToContent = () => {
 
 const getAllStorage = () => {
     
-    return getStore({"popupVisible":"","detecting":""}) //currently all storage
+    return getStore({"prompted":"","prompt":""}) //currently all storage
         .then((result) => {
             return result;  // Result will contain the retrieved values
         })
@@ -61,4 +76,15 @@ const getAllStorage = () => {
         
 };
 
-export {setStore, getStore, updateSettingsToContent, getAllStorage}
+const getAllStorageSession = () => {
+    return getStoreSession({"prompted":"","prompt":""}) //currently all storage
+        .then((result) => {
+            return result;  // Result will contain the retrieved values
+        })
+        .catch((error) => {
+            console.error("Error accessing storage:", error);
+            return {}; // Return an empty object on error
+        });  
+};
+
+export { getAllStorage, setStore, clearStore}
