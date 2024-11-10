@@ -18,7 +18,12 @@ function injectReact(Component, root_ele, props={}) {
 
 function removeReact(){
   if(root_render){  
-    root_render.unmount()
+    try{
+      root_render.unmount()
+    }
+    catch{
+
+    }
     root_render = null
   }
 }

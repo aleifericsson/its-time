@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import { removeReact } from './ext-qol.jsx';
-import './LoadingAnim.css'; // Add this file for custom CSS styling
+import './resetAnim.css'; // Add this file for custom CSS styling
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-export default function LoadingAnim() {
+export default function resetAnim() {
     const [progress, setProgress] = useState(0);
     const progressRef = useRef(null);
     const globeRef = useRef(null);
@@ -16,20 +16,24 @@ export default function LoadingAnim() {
             setProgress((oldProgress) => {
                 if (oldProgress === 100) {
                     clearInterval(interval);
+                    window.location.reload();
                     return 100;
                 }
                 return Math.min(oldProgress + 1, 100);
             });
         }, 50); // Update progress every 50ms
 
-        return () => clearInterval(interval); // Cleanup the interval on component unmount
+        return () => {
+            clearInterval(interval)
+            window.location.reload();
+        }; // Cleanup the interval on component unmount
     }, []);
 
     // Remove loading overlay after 5 seconds
     useEffect(() => {
         const timer = setTimeout(() => {
             removeReact();
-        }, 10000);
+        }, 5000);
 
         return () => clearTimeout(timer);
     }, []);
@@ -69,7 +73,6 @@ export default function LoadingAnim() {
             ["FlyingSaucer", [7, 7, 7]],
             ["Hourglass", [2, 2, 2]],
             ["SpaceShuttle", [0.5, 0.5, 0.5]],
-            ["Diplodocus", [0.015, 0.015, 0.015]],
         ];
 
         const randObject1 = objects[Math.floor(Math.random() * objects.length)];
@@ -110,22 +113,22 @@ export default function LoadingAnim() {
         // Load the first object
         loadModel(randObject1, (model) => {
             loadedObject1 = model;
-            loadedObject1.position.z = -700;
-            loadedObject1.position.x = -20;
+            loadedObject1.position.z = -250;
+            loadedObject1.position.x = 5;
         });
 
         // Load the second object
         loadModel(randObject2, (model) => {
             loadedObject2 = model;
-            loadedObject2.position.z = -550;
-            loadedObject2.position.x = 0;
+            loadedObject2.position.z = -150;
+            loadedObject2.position.x = 15;
         });
 
         // Load the third object
         loadModel(randObject3, (model) => {
             loadedObject3 = model;
-            loadedObject3.position.z = -400;
-            loadedObject3.position.x = 20;
+            loadedObject3.position.z = -50;
+            loadedObject3.position.x = 25;
         });
 
 
@@ -133,10 +136,13 @@ export default function LoadingAnim() {
         const ambientLight = new THREE.AmbientLight(0xffffff, 10); // Soft white light
         scene.add(ambientLight);
         
-        cube.position.z = -700
+        cube.position.z = -250
         cube.position.x = 10
-        earth.position.z = -400
+        earth.position.z = 0
         earth.position.x = -10
+      
+
+
 
         function addStar() {
             const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -168,17 +174,17 @@ export default function LoadingAnim() {
 
             if (loadedObject1) {
                 loadedObject1.rotation.y += 0.01;
-                loadedObject1.position.z += 4;
+                loadedObject1.position.z += 1.2;
             }
 
             if (loadedObject2) {
                 loadedObject2.rotation.y += 0.01;
-                loadedObject2.position.z += 4;
+                loadedObject2.position.z += 1.2;
             }
 
             if (loadedObject3) {
                 loadedObject3.rotation.y += 0.01;
-                loadedObject3.position.z += 4;
+                loadedObject3.position.z += 1.2;
             }
 
             renderer.render(scene, camera);
@@ -187,12 +193,11 @@ export default function LoadingAnim() {
         animate();
 
         return () => {
-            /*
+            // Cleanup Three.js resources
             if (starsRef.current && renderer.domElement) {
                 starsRef.current.removeChild(renderer.domElement);
             }
             renderer.dispose();
-            */
         };
     }, []);
 
@@ -228,13 +233,10 @@ export default function LoadingAnim() {
     
         // Cleanup function
         return () => {
-            /*
             if (globeRef.current && globeRef.current.contains(renderer.domElement)) {
                 globeRef.current.removeChild(renderer.domElement);
             }
-                
             renderer.dispose();
-            */
         };
     }, []);
     

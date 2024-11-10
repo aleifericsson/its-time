@@ -51,12 +51,17 @@ async function scrapePage(){ //ONLY AVAILABLE  FROM SETTINGS SCRIPT
 }
 
 const changeText = (sample_text) =>{
-    const textele = find(".mw-content-ltr.mw-parser-output")
+    const textele = find("#mw-content-text")
+    
     const infobox = find(".infobox")
     const newtext = create("p")
     if (textele){
+        const figure = textele.find("figure")
         write(textele, " ")
         render(textele, infobox)
+        if (figure){
+            render(textele, figure)
+        }
         render(textele, newtext)
         write(newtext, sample_text)
     }

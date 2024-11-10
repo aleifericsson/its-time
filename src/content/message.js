@@ -1,5 +1,6 @@
 import { getRoot, injectReact, isRendered, removeReact } from "./ext-qol";
 import LoadingAnim from "./loadingAnim.jsx";
+import resetAnim from "./resetAnim.jsx";
 import { setStore } from "./storage.js";
 import { changeText } from "./wiki-scraper.js";
 
@@ -20,7 +21,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         setStore({"new_text":message.new_text})
     }
     if(message.message == "reset"){
-        window.location.reload();
+        injectReact(resetAnim, getRoot())
     }
     })
 }

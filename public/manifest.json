@@ -20,13 +20,10 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "assets/content.Blsp-BVf.js",
-        "assets/content.BvvQHLT_.js",
-        "assets/content.BfHP8E78.js",
+        "assets/content.Dp29Vswh.js",
         "content/style.css",
-        "images/close.png",
-        "images/earth.jpg",
-        "images/cube.jpg",
+        "images/*.png",
+        "images/*.jpg",
         "models/*.glb"
       ],
       "matches": [
@@ -37,7 +34,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/content.Blsp-BVf.js"
+        "assets/content.Dp29Vswh.js"
       ],
       "matches": [
         "http://*/*",
