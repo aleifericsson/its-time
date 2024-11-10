@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { removeReact } from './ext-qol.jsx';
-import './LoadingAnim.css'; // Add this file for custom CSS styling
+import './resetAnim.css'; // Add this file for custom CSS styling
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -28,6 +28,7 @@ export default function resetAnim() {
     // Remove loading overlay after 5 seconds
     useEffect(() => {
         const timer = setTimeout(() => {
+            window.location.reload();
             removeReact();
         }, 10000);
 
@@ -241,9 +242,6 @@ export default function resetAnim() {
         const renderer = new THREE.WebGLRenderer({ alpha: true });
         renderer.setSize(500, 700);
 
-        
-
-        
         if (globeRef.current) {
             globeRef.current.appendChild(renderer.domElement);
         }

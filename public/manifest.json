@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "What If?",
   "icons": {
-    "256": "images/what_if.png"
+    "256": "images/cropped_logo.png"
   },
   "version": "1.0.0",
   "action": {
@@ -21,11 +21,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-<<<<<<< HEAD
-        "assets/content.6MotjbgR.js",
-=======
-        "assets/content.Dj8Egzu3.js",
->>>>>>> 243c96111e4e9da2e362e25b0721e0294b44517a
+        "assets/content.BuoQ2fm6.js",
         "content/style.css",
         "images/*.png",
         "images/*.jpg",
@@ -39,7 +35,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/content.Dj8Egzu3.js"
+        "assets/content.BuoQ2fm6.js"
       ],
       "matches": [
         "http://*/*",

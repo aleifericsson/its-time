@@ -29,7 +29,7 @@ export default function LoadingAnim() {
     useEffect(() => {
         const timer = setTimeout(() => {
             removeReact();
-        }, 10000);
+        }, 20000);
 
         return () => clearTimeout(timer);
     }, []);
