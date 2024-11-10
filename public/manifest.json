@@ -21,7 +21,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "assets/content.DMFWyrZq.js",
+        "assets/content.Dj8Egzu3.js",
         "content/style.css",
         "images/*.png",
         "images/*.jpg",
@@ -35,7 +35,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/content.DMFWyrZq.js"
+        "assets/content.Dj8Egzu3.js"
       ],
       "matches": [
         "http://*/*",

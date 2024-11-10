@@ -285,8 +285,7 @@ export default function LoadingAnim() {
                 {/* GRADIENT */}
                 <div className="gradient-container" ref={gradientRef}></div>
                 <div className="glow-container" ref={gradientRef}></div>
-                {/* Spinning Hourglass
-                <div className="hourglass-container" ref={hourglassRef}></div> */}
+                <div className="hourglass-container"></div>
                 
                 {/* 3D Progress Bar */}
                 <div className="progress-bar-container">
